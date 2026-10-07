@@ -1,5 +1,5 @@
 /*
-  Entry page: tap the espresso cup, coffee pours in, floods the screen and lifts away
+  Entry page: tap the coffee cup, coffee pours in (and the music starts), floods the screen and lifts away
   to reveal the guide. Shown once per browser tab; reloads go straight to the guide.
 */
 (function () {
@@ -17,6 +17,7 @@
     if (started) return;
     started = true;
     try { sessionStorage.setItem("entered", "1"); } catch {}
+    window.Music?.startIfWanted();
 
     if (reduceMotion) {
       splash.classList.add("is-fading");
@@ -25,9 +26,12 @@
     }
 
     // Line the stream up with the middle of the cup's rim.
-    const rim = cup.querySelector(".cup-mouth").getBoundingClientRect();
+    const rim = cup.querySelector(".mouth").getBoundingClientRect();
     stream.style.left = `${rim.left + rim.width / 2}px`;
-    stream.style.height = `${rim.top + rim.height / 2}px`;
+    // Pour from just under the awning.
+    const top = splash.querySelector(".awning").getBoundingClientRect().height - 14;
+    stream.style.top = `${top}px`;
+    stream.style.height = `${rim.top + rim.height / 2 - top}px`;
 
     splash.classList.add("is-pouring");
     await wait(1300);

@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-  <link rel="stylesheet" href="styles.css?v=8" />
+  <link rel="stylesheet" href="styles.css?v=9" />
   <script>
     // Apply the saved theme and skip the entry page before anything paints.
     try {
@@ -22,31 +22,47 @@
 </head>
 <body>
   <div class="splash" id="splash">
+    <div class="awning" aria-hidden="true"></div>
     <div class="splash-inner">
       <button class="splash-cup" id="splash-cup" aria-label="Pour a cup and enter Charlotte Coffee Atlas">
-        <svg viewBox="0 0 220 180" aria-hidden="true">
+        <!-- Hand-drawn style cup, drawn for this site. -->
+        <svg viewBox="0 0 260 190" aria-hidden="true">
           <defs>
-            <clipPath id="cup-mouth"><ellipse cx="110" cy="60" rx="51" ry="9.5" /></clipPath>
+            <filter id="sketch" x="-10%" y="-10%" width="120%" height="120%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="1" seed="4" />
+              <feDisplacementMap in="SourceGraphic" scale="1.6" />
+            </filter>
+            <clipPath id="cup-mouth"><ellipse cx="118" cy="78" rx="60" ry="8.5" /></clipPath>
           </defs>
-          <g class="steam">
-            <path d="M92 40 q-8 -12 0 -22 q8 -10 0 -20" />
-            <path d="M110 42 q-8 -12 0 -22 q8 -10 0 -20" />
-            <path d="M128 40 q-8 -12 0 -22 q8 -10 0 -20" />
+          <path class="steam" d="M114 66 C104 52 124 46 115 32 C106 18 125 12 117 -2" />
+          <g class="lines">
+            <path class="table" d="M-600 156 H44 M206 156 H860" />
+            <path class="table" d="M-600 184 C-200 179 200 189 860 182" />
           </g>
-          <ellipse class="saucer" cx="110" cy="152" rx="86" ry="13" />
-          <path class="handle" d="M156 76 q32 -2 30 24 q-2 22 -38 20" />
-          <path class="cup-body" d="M56 60 C56 114 76 147 110 147 C144 147 164 114 164 60 Z" />
-          <ellipse class="cup-mouth" cx="110" cy="60" rx="54" ry="11" />
+          <g class="lines" filter="url(#sketch)">
+            <path class="paper" d="M40 153 C58 141 184 139 214 150 C224 157 200 166 128 167 C68 168 32 162 40 153 Z" />
+            <path d="M40 153 C58 141 184 139 214 150 C224 157 200 166 128 167 C68 168 32 162 40 153" />
+            <path class="faint" d="M50 157 C80 163 176 163 206 154" />
+            <path d="M174 92 C194 82 210 90 205 106 C200 121 184 127 166 129" />
+            <path class="faint" d="M174 100 C188 94 199 99 195 110 C191 118 181 121 170 122" />
+            <path class="paper" d="M56 78 C58 118 78 148 104 152 L134 152 C160 148 178 118 180 78 Z" />
+            <path d="M56 78 C58 118 78 148 104 152 C116 154 124 154 134 152 C160 148 178 118 180 78" />
+            <path class="faint" d="M66 86 C70 118 86 140 110 146" />
+          </g>
+          <ellipse class="mouth" cx="118" cy="78" rx="62" ry="9.5" />
           <g clip-path="url(#cup-mouth)">
-            <g class="coffee">
-              <ellipse class="coffee-top" cx="110" cy="60" rx="52" ry="9.5" />
-              <ellipse class="coffee-sheen" cx="96" cy="57" rx="16" ry="2.2" />
-            </g>
+            <ellipse class="coffee" cx="118" cy="79" rx="60" ry="8.5" />
+          </g>
+          <g class="lines" filter="url(#sketch)">
+            <ellipse cx="118" cy="78" rx="62" ry="9.5" />
+            <path class="faint" d="M58 76 C80 70 160 69 178 75" />
           </g>
         </svg>
       </button>
+      <p class="splash-eyebrow">un petit guide des cafés</p>
       <p class="splash-title">Charlotte Coffee Atlas</p>
       <p class="splash-hint">Tap the cup to pour</p>
+      <button class="splash-music" id="splash-music" aria-pressed="true">Music on</button>
     </div>
     <div class="stream" aria-hidden="true"></div>
     <div class="flood" aria-hidden="true">
@@ -65,6 +81,7 @@
       </div>
     </div>
     <div class="masthead-tools">
+      <button class="theme-toggle" id="music-toggle"></button>
       <button class="theme-toggle" id="theme-toggle"></button>
       <div class="view-toggle" role="tablist" aria-label="View">
         <button role="tab" data-view="map" aria-selected="true">Map</button>
@@ -125,10 +142,11 @@
     workability notes are our own estimates. Photos are credited to the people who posted them on Google.
   </footer>
 
-  <script src="splash.js?v=8"></script>
+  <script src="music.js?v=9"></script>
+  <script src="splash.js?v=9"></script>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script src="config.js?v=8"></script>
-  <script src="data.js?v=8"></script>
-  <script src="app.js?v=8"></script>
+  <script src="config.js?v=9"></script>
+  <script src="data.js?v=9"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>

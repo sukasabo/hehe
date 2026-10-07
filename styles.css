@@ -293,41 +293,62 @@ select {
 /* Google's required credit next to its ratings: plain text, not restyled. */
 .g-credit { font: 400 11px Roboto, Arial, sans-serif; color: var(--muted); letter-spacing: 0; }
 
-/* Entry page */
-:root { --coffee: #1c0e07; --coffee-light: #2e170b; --crema: #4a2814; --cup: #fffdf9; --cup-inside: #e6dccf; }
-/* The cup stays white porcelain in dark mode so the coffee reads against it. */
-:root[data-theme="dark"] { --cup: #eee7dc; --cup-inside: #d5c9ba; --cup-line: #7a6e61; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --cup: #eee7dc; --cup-inside: #d5c9ba; --cup-line: #7a6e61; } }
+/* Entry page: minimal French cafe, sketched cup on cream paper under a striped awning. */
+:root { --coffee: #1c0e07; --coffee-light: #2e170b; --crema: #4a2814; --paper: #fbf6ec; --awning: #f3c4d2; --mouth: #fbf6ec; }
+:root[data-theme="dark"] { --paper: #1a1612; --awning: #8e5b6b; --mouth: #3a3129; --crema: #7a4a2a; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper: #1a1612; --awning: #8e5b6b; --mouth: #3a3129; --crema: #7a4a2a; }
+}
 html:not(.entered) body { overflow: hidden; }
 .entered .splash { display: none; }
 .splash {
   position: fixed; inset: 0; z-index: 3000; display: grid; place-items: center;
-  background: var(--bg); overflow: hidden; transition: transform .8s cubic-bezier(.7, 0, .3, 1), opacity .25s;
+  background: var(--paper); overflow: hidden; transition: transform .8s cubic-bezier(.7, 0, .3, 1), opacity .25s;
 }
-.splash-inner { display: grid; justify-items: center; gap: 18px; padding: 24px; text-align: center; }
-.splash-title { margin: 6px 0 0; font: 600 34px/1.1 var(--serif); letter-spacing: .01em; }
-.splash-hint { margin: 0; font: italic 500 18px var(--serif); color: var(--muted); transition: opacity .3s; }
+.awning {
+  position: absolute; top: 0; left: 0; right: 0; height: 64px;
+  background: repeating-linear-gradient(90deg, var(--awning) 0 36px, var(--paper) 36px 72px);
+  -webkit-mask: radial-gradient(18px 14px at 18px 50px, #000 98%, transparent) 0 0 / 36px 100% repeat-x,
+    linear-gradient(#000 0 0) 0 0 / 100% 50px no-repeat;
+  mask: radial-gradient(18px 14px at 18px 50px, #000 98%, transparent) 0 0 / 36px 100% repeat-x,
+    linear-gradient(#000 0 0) 0 0 / 100% 50px no-repeat;
+}
+.splash-inner { display: grid; justify-items: center; gap: 10px; padding: 24px; text-align: center; }
+.splash-eyebrow { margin: 18px 0 0; font: italic 500 17px var(--serif); color: var(--accent); letter-spacing: .04em; }
+.splash-title { margin: 0; font: italic 500 40px/1.05 var(--serif); letter-spacing: .01em; }
+.splash-hint { margin: 4px 0 0; font: italic 500 17px var(--serif); color: var(--muted); transition: opacity .3s; }
+.splash-music {
+  margin-top: 6px; padding: 5px 14px; border: 1px solid var(--line); border-radius: 999px; background: none;
+  font: 12px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); cursor: pointer;
+  transition: opacity .3s;
+}
+.splash-music[aria-pressed="true"] { border-color: var(--awning); background: var(--pink-soft); color: var(--ink); }
 .splash-cup {
-  width: min(260px, 64vw); padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink);
+  width: min(300px, 74vw); padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink);
   border-radius: 24px; transition: transform .25s;
 }
-.splash-cup:hover { transform: translateY(-3px); }
+.splash-cup:hover { transform: translateY(-3px) rotate(-1deg); }
 .splash-cup:focus-visible { outline: 2px solid var(--accent); outline-offset: 8px; }
 .splash-cup svg { display: block; width: 100%; height: auto; overflow: visible; }
-.splash-cup .saucer { fill: var(--cup); stroke: var(--cup-line, currentColor); stroke-width: 2.5; }
-.splash-cup .handle { fill: none; stroke: currentColor; stroke-width: 7; stroke-linecap: round; }
-.splash-cup .cup-body { fill: var(--cup); stroke: var(--cup-line, currentColor); stroke-width: 2.5; stroke-linejoin: round; }
-.splash-cup .cup-mouth { fill: var(--cup-inside); stroke: var(--cup-line, currentColor); stroke-width: 2.5; }
+.splash-cup .lines path, .splash-cup .lines ellipse {
+  fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+.splash-cup .lines .paper { fill: var(--paper); stroke: none; }
+.splash-cup .lines .faint { stroke-width: 1.1; opacity: .55; }
+.splash-cup .lines .table { stroke-width: 1.2; opacity: .7; }
+.splash-cup .mouth { fill: var(--mouth); }
 /* Seen from above: the coffee surface starts small and deep in the cup and rises to the rim. */
 .splash-cup .coffee {
-  transform-box: fill-box; transform-origin: center; transform: translateY(8px) scale(.5); opacity: 0;
+  fill: var(--coffee); stroke: var(--crema); stroke-width: 2.5;
+  transform-box: fill-box; transform-origin: center; transform: translateY(6px) scale(.45); opacity: 0;
   transition: transform 1s cubic-bezier(.3, .6, .4, 1) .3s, opacity .3s .3s;
 }
-.splash-cup .coffee-top { fill: var(--coffee); stroke: var(--crema); stroke-width: 3; }
-.splash-cup .coffee-sheen { fill: rgba(255, 235, 215, .14); }
-.splash-cup .steam path { fill: none; stroke: var(--muted); stroke-width: 2.5; stroke-linecap: round; opacity: 0; }
+.splash-cup .steam {
+  fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; opacity: 0;
+  stroke-dasharray: 120; stroke-dashoffset: 120;
+}
 .splash .stream {
-  position: absolute; top: 0; width: 7px; height: 0; margin-left: -3.5px; border-radius: 0 0 4px 4px;
+  position: absolute; top: 0; width: 6px; height: 0; margin-left: -3px; border-radius: 0 0 4px 4px;
   background: linear-gradient(90deg, var(--coffee), var(--coffee-light) 45%, var(--coffee));
   transform: scaleY(0); transform-origin: top; transition: transform .35s ease-in;
 }
@@ -341,12 +362,10 @@ html:not(.entered) body { overflow: hidden; }
 
 .splash.is-pouring .stream { transform: scaleY(1); }
 .splash.is-pouring .coffee { transform: none; opacity: 1; }
-.splash.is-pouring .steam path { animation: rise 1.2s ease-out .9s both; }
-.splash.is-pouring .steam path:nth-child(2) { animation-delay: 1.05s; }
-.splash.is-pouring .steam path:nth-child(3) { animation-delay: 1.2s; }
-.splash.is-pouring .splash-hint { opacity: 0; }
+.splash.is-pouring .steam { animation: draw-steam 1.6s ease-out 1s forwards; }
+.splash.is-pouring .splash-hint, .splash.is-pouring .splash-music { opacity: 0; pointer-events: none; }
 .splash.is-pouring .splash-cup { cursor: default; transform: none; }
 .splash.is-flooding .flood { transform: translateY(0); }
 .splash.is-leaving { transform: translateY(-100%); }
 .splash.is-fading { opacity: 0; }
-@keyframes rise { 0% { opacity: 0; transform: translateY(6px); } 40% { opacity: .8; } 100% { opacity: 0; transform: translateY(-14px); } }
+@keyframes draw-steam { 0% { opacity: 0; stroke-dashoffset: 120; } 30% { opacity: .7; } 100% { opacity: .5; stroke-dashoffset: 0; } }
