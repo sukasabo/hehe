@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Charlotte Coffee Atlas</title>
+  <meta name="description" content="A curated guide to Charlotte coffee shops by atmosphere, hours, workability and crowd levels." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27none%27 stroke=%27%239a7442%27 stroke-width=%272%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%239a7442%27/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="masthead">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div>
+        <h1>Charlotte Coffee Atlas</h1>
+        <p class="tagline">Sixteen rooms worth sitting in, chosen for their atmosphere.</p>
+      </div>
+    </div>
+    <div class="view-toggle" role="tablist" aria-label="View">
+      <button role="tab" data-view="map" aria-selected="true">Map</button>
+      <button role="tab" data-view="list" aria-selected="false">List</button>
+    </div>
+  </header>
+
+  <section class="toolbar" aria-label="Sort and filter">
+    <div class="control">
+      <label for="sort">Sort by</label>
+      <select id="sort">
+        <option value="recommended">Recommended</option>
+        <option value="rating">Highest rated</option>
+        <option value="closes-late">Open latest</option>
+        <option value="opens-early">Opens earliest</option>
+        <option value="hours-long">Longest hours</option>
+        <option value="work">Best for working</option>
+        <option value="quiet">Least busy at that time</option>
+        <option value="distance">Nearest to me</option>
+        <option value="name">Name</option>
+      </select>
+    </div>
+    <div class="control">
+      <label for="when-day">Visiting</label>
+      <div class="when">
+        <select id="when-day"></select>
+        <select id="when-hour"></select>
+      </div>
+    </div>
+    <div class="chips" role="group" aria-label="Filters">
+      <button class="chip" data-filter="open">Open at that time</button>
+      <button class="chip" data-filter="late">Open after 6 PM</button>
+      <button class="chip" data-filter="work">Good for work</button>
+      <button class="chip" data-filter="quiet">Not busy</button>
+      <button class="chip" data-filter="photos">Has interior photos</button>
+      <button class="chip" data-filter="budget">$1–10</button>
+    </div>
+    <p class="count" id="count" aria-live="polite"></p>
+  </section>
+
+  <main class="layout" data-view="map">
+    <ol class="shop-list" id="list"></ol>
+    <div class="map-wrap"><div id="map" aria-label="Map of coffee shops"></div></div>
+  </main>
+
+  <aside class="detail" id="detail" aria-hidden="true" aria-labelledby="detail-name" role="dialog">
+    <div class="detail-scrim" data-close></div>
+    <div class="detail-panel" tabindex="-1">
+      <button class="close" data-close aria-label="Close">
+        <svg viewBox="0 0 24 24" width="20" height="20"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>
+      </button>
+      <div id="detail-body"></div>
+    </div>
+  </aside>
+
+  <footer class="colophon">
+    Ratings, prices and closing times from Google listings, October 2026. Opening times, weekend hours,
+    crowd curves and workability notes are editorial estimates — confirm with the shop before you go.
+    Photos are from each shop's Google listing.
+  </footer>
+
+  <script src="vendor/leaflet/leaflet.js"></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
