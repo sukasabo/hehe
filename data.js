@@ -5,8 +5,10 @@
   crowd:   peak curves used to estimate how busy a shop is by hour.
            Each peak is [centerHour, intensity 0-100, spread in hours].
   work:    editorial read on how workable the space is (score out of 5).
-  photos:  file names in images/, plus credits (file -> Google photo author).
+  photos:  file names in images/ (small copies in images/thumbs/), plus credits
+           (file -> Google photo author).
   placeId: Google place ID, used to load live ratings and hours (see config.js).
+  phone, website: from Google; null when the listing has none.
 
   Coordinates, hours, ratings, review counts and photos come from Google Maps
   (October 2026), as do price ranges. Crowd curves and workability are estimates.
@@ -22,6 +24,7 @@ window.SHOPS = [
     neighborhood: "Station West, FreeMoreWest",
     address: "919 Berryhill Rd #104, Charlotte, NC 28208",
     placeId: "ChIJIU677M6hVogRpHUpHNhIE3o",
+    phone: "(980) 527-3922", website: "http://platformcoffee.com/",
     lat: 35.23894, lng: -80.87197,
     rating: 4.7, reviews: 559, price: 2, priceLabel: "$10–20",
     category: "Coffee shop and roastery",
@@ -56,6 +59,7 @@ window.SHOPS = [
     neighborhood: "McGill Rose Garden, Optimist Park",
     address: "940 N Davidson St, Charlotte, NC 28206",
     placeId: "ChIJp3SlQKqhVogRoVTZDanY9dc",
+    phone: "(704) 604-8975", website: "https://www.rosieswinegarden.com/",
     lat: 35.22994, lng: -80.82788,
     rating: 4.8, reviews: 615, price: 2, priceLabel: "$10–20",
     category: "Coffee and wine bar",
@@ -90,6 +94,7 @@ window.SHOPS = [
     neighborhood: "Villa Heights, NoDa",
     address: "2100 N Davidson St, Charlotte, NC 28205",
     placeId: "ChIJg5gfa_ChVogRNUIJ-gBl8ec",
+    phone: "(704) 993-7144", website: "http://www.thehobbyistclt.com/",
     lat: 35.23859, lng: -80.81609,
     rating: 4.7, reviews: 670, price: 2, priceLabel: "$10–20",
     category: "Coffee shop and bottle shop",
@@ -126,6 +131,7 @@ window.SHOPS = [
     neighborhood: "Uptown",
     address: "100 W Trade St, Charlotte, NC 28202",
     placeId: "ChIJA34_YiWgVogR195FiSsXR_0",
+    phone: "(704) 353-6003", website: "https://www.marriott.com/en-us/hotels/cltcc-charlotte-marriott-city-center/dining/",
     lat: 35.22781, lng: -80.84340,
     rating: 4.4, reviews: 1194, price: 2, priceLabel: "$10–20",
     category: "Coffee shop",
@@ -160,6 +166,7 @@ window.SHOPS = [
     neighborhood: "Camp North End",
     address: "201 Camp Rd Suite 103, Charlotte, NC 28206",
     placeId: "ChIJ___PjW2fVogRpQSJQZr2tKM",
+    phone: "(704) 899-1694", website: "http://hexclt.com/",
     lat: 35.24597, lng: -80.83291,
     rating: 4.6, reviews: 629, price: 2, priceLabel: "$10–20",
     category: "Cafe",
@@ -194,6 +201,7 @@ window.SHOPS = [
     neighborhood: "LoSo",
     address: "4015 Craft St, Charlotte, NC 28217",
     placeId: "ChIJT8ogcxKZVogRllA99CfjkB8",
+    phone: "(704) 412-8873", website: "http://thousandhills.coffee/",
     lat: 35.19161, lng: -80.87569,
     rating: 4.6, reviews: 620, price: 1, priceLabel: "$1–10",
     category: "Coffee shop",
@@ -229,6 +237,7 @@ window.SHOPS = [
     neighborhood: "South End",
     address: "1425 Winnifred St #117, Charlotte, NC 28203",
     placeId: "ChIJLVc_556fVogRfV46u9ccHpA",
+    phone: "(704) 910-1648", website: "https://babaloocoffeeclub.com/",
     lat: 35.21755, lng: -80.85634,
     rating: 4.3, reviews: 291, price: 1, priceLabel: "$1–10",
     category: "Coffee shop",
@@ -262,6 +271,7 @@ window.SHOPS = [
     neighborhood: "South End",
     address: "1327 S Mint St, Charlotte, NC 28203",
     placeId: "ChIJaVIboV2hVogR0mRFjbRFnao",
+    phone: null, website: "https://www.coolidiotcoffee.net/",
     lat: 35.22082, lng: -80.85773,
     rating: 4.6, reviews: 38, price: 1, priceLabel: "$1–10",
     category: "Coffee shop",
@@ -296,6 +306,7 @@ window.SHOPS = [
     neighborhood: "South End",
     address: "2135 Southend Dr #109, Charlotte, NC 28203",
     placeId: "ChIJhVK71XCfVogRhtRvoY7yj80",
+    phone: "(980) 260-3111", website: "http://www.rootscafesouthend.com/",
     lat: 35.20652, lng: -80.86025,
     rating: 4.4, reviews: 630, price: 2, priceLabel: "$10–20",
     category: "Cafe",
@@ -330,6 +341,7 @@ window.SHOPS = [
     neighborhood: "Dilworth",
     address: "2230 Park Rd #102, Charlotte, NC 28203",
     placeId: "ChIJmQuamJ-fVogRRVVKVkx3xjM",
+    phone: "(704) 900-7500", website: "http://www.notjust.coffee/",
     lat: 35.19913, lng: -80.85252,
     rating: 4.4, reviews: 356, price: 2, priceLabel: "$1–20",
     category: "Cafe",
@@ -362,6 +374,7 @@ window.SHOPS = [
     neighborhood: "The Bowl at Ballantyne",
     address: "15119 Bowl St #101, Charlotte, NC 28277",
     placeId: "ChIJq4RBQcedVogRS88bznyd_9w",
+    phone: "(980) 243-4438", website: "http://flykidfly.com/",
     lat: 35.05785, lng: -80.84580,
     rating: 4.5, reviews: 213, price: 1, priceLabel: "$1–10",
     category: "Coffee shop",
@@ -395,6 +408,7 @@ window.SHOPS = [
     neighborhood: "Madison Park, South Blvd",
     address: "3441 South Blvd C, Charlotte, NC 28209",
     placeId: "ChIJ6VHMZACfVogRNoplEbZYuFA",
+    phone: "(980) 236-8270", website: "https://harazcoffee-xg4lp0c0.toast.site/order/haraz-coffee-hollis-charlotte",
     lat: 35.19331, lng: -80.87293,
     rating: 4.7, reviews: 309, price: 2, priceLabel: "$10–20",
     category: "Yemeni coffee house",
@@ -428,6 +442,7 @@ window.SHOPS = [
     neighborhood: "Wilmore, Remount Rd",
     address: "125 Remount Rd B, Charlotte, NC 28203",
     placeId: "ChIJd-5XQVufVogRKJH_TYMN07M",
+    phone: null, website: "http://www.stablehandclt.com/",
     lat: 35.20258, lng: -80.86591,
     rating: 4.7, reviews: 254, price: 2, priceLabel: "$10–20",
     category: "Coffee shop and bakery",
@@ -462,6 +477,7 @@ window.SHOPS = [
     neighborhood: "Commonwealth Park, Eastway",
     address: "3102 Eastway Dr, Charlotte, NC 28205",
     placeId: "ChIJk0bxMjshVIgRECQpU-sNgJU",
+    phone: "(704) 343-3031", website: "http://www.visartvideo.org/",
     lat: 35.21406, lng: -80.78264,
     rating: 4.8, reviews: 66, price: 1, priceLabel: "$1–10",
     category: "Art cafe",
@@ -498,6 +514,7 @@ window.SHOPS = [
     neighborhood: "Uptown, South Tryon",
     address: "620 S Tryon St Ste 150, Charlotte, NC 28202",
     placeId: "ChIJK_9Nv76hVogRcYP2ZHINMag",
+    phone: "(704) 595-3005", website: "https://nightswimcoffee.com/",
     lat: 35.22377, lng: -80.84971,
     rating: 4.5, reviews: 82, price: 1, priceLabel: "$1–10",
     category: "Coffee shop",
@@ -533,6 +550,7 @@ window.SHOPS = [
     neighborhood: "Davis Lake–Eastfield",
     address: "8335 Browne Rd, Charlotte, NC 28269",
     placeId: "ChIJL5iXvXodVIgRi9va0ff04Cc",
+    phone: null, website: "http://thegroundsatmeck.com/",
     lat: 35.35580, lng: -80.79993,
     rating: 4.9, reviews: 206, price: 1, priceLabel: "$1–10",
     category: "Bookstore cafe",

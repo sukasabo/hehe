@@ -274,3 +274,7 @@ select {
   .detail h2 { font-size: 30px; }
   .facts { grid-template-columns: 1fr 1fr; }
 }
+
+/* Google's required credit next to its ratings: plain text, not restyled. */
+.g-credit { font: 400 11px Roboto, Arial, sans-serif; color: var(--muted); letter-spacing: 0; }
+

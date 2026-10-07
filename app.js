@@ -107,13 +107,16 @@
   const countEl = document.getElementById("count");
 
   const firstPhoto = (s) => s.photos.space[0] || s.photos.food[0];
+  const thumb = (file) => `images/thumbs/${file}`;
+  // Google requires a "Google Maps" credit wherever its ratings are shown without a Google map.
+  const GOOGLE_CREDIT = `<span class="g-credit">Google Maps</span>`;
 
   function cardHTML(s) {
     const st = statusText(s);
     const busy = busyness(s, state.day, state.hour);
     const dist = state.userPos ? `<span>${miles(state.userPos, s).toFixed(1)} mi</span>` : "";
     const photo = s.photos.space[0]
-      ? `<img src="images/${s.photos.space[0]}" alt="Inside ${s.name}" loading="lazy">`
+      ? `<img src="${thumb(s.photos.space[0])}" alt="Inside ${s.name}" loading="lazy">`
       : `<div class="no-photo">${s.atmosphere.headline}</div>`;
     return `
       <li class="card" data-id="${s.id}" tabindex="0" role="button" aria-label="${s.name}">
@@ -126,6 +129,7 @@
           <div class="meta">
             <span class="rating">${STAR}${s.rating.toFixed(1)}</span>
             <span>${s.reviews.toLocaleString()} reviews</span>
+            ${GOOGLE_CREDIT}
             <span>${s.priceLabel}</span>
             ${dist}
           </div>
@@ -185,7 +189,7 @@
       const m = L.marker([s.lat, s.lng], { icon, title: s.name, riseOnHover: true }).addTo(map);
       const img = firstPhoto(s);
       m.bindTooltip(
-        `<div class="peek">${img ? `<img src="images/${img}" alt="">` : ""}
+        `<div class="peek">${img ? `<img src="${thumb(img)}" alt="">` : ""}
           <div class="peek-body"><strong>${s.name}</strong><em>${s.atmosphere.headline}</em>
           <span class="peek-status" data-id="${s.id}"></span></div></div>`,
         { className: "peek", direction: "top", offset: [0, -14], opacity: 1 }
@@ -245,7 +249,7 @@
   let lastFocus = null;
 
   function mapsURL(s) {
-    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + " " + s.address)}`;
+    return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.name + " " + s.address)}&query_place_id=${s.placeId}`;
   }
   function yelpURL(s) {
     return `https://www.yelp.com/search?find_desc=${encodeURIComponent(s.name)}&find_loc=${encodeURIComponent("Charlotte, NC")}`;
@@ -292,6 +296,7 @@
         <div class="meta">
           <span class="rating">${STAR}${s.rating.toFixed(1)}</span>
           <span>${s.reviews.toLocaleString()} Google reviews</span>
+          ${GOOGLE_CREDIT}
           <span>${s.priceLabel} per person</span>
           <span class="status ${st.open ? "open" : "closed"}">${st.text}</span>
         </div>
@@ -346,6 +351,8 @@
           <p style="margin:0">${s.address}</p>
           <div class="actions">
             <a class="btn primary" href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(s.name + " " + s.address)}" target="_blank" rel="noopener">Directions</a>
+            ${s.phone ? `<a class="btn" href="tel:${s.phone.replace(/[^\d+]/g, "")}">Call ${s.phone}</a>` : ""}
+            ${s.website ? `<a class="btn" href="${s.website}" target="_blank" rel="noopener">Website</a>` : ""}
             <a class="btn" href="${mapsURL(s)}" target="_blank" rel="noopener">All photos on Google</a>
             <a class="btn" href="${yelpURL(s)}" target="_blank" rel="noopener">Yelp</a>
           </div>
@@ -372,7 +379,7 @@
         (credit ? `<span class="credit">Photo: ${esc(credit)} via Google</span>` : "");
       thumbs.innerHTML =
         pics.length > 1
-          ? pics.map((p, i) => `<button aria-current="${i === idx}" data-i="${i}" aria-label="Photo ${i + 1}"><img src="images/${p}" alt=""></button>`).join("")
+          ? pics.map((p, i) => `<button aria-current="${i === idx}" data-i="${i}" aria-label="Photo ${i + 1}"><img src="${thumb(p)}" alt=""></button>`).join("")
           : "";
       thumbs.querySelectorAll("button").forEach((b) => (b.onclick = () => showTab(tab, +b.dataset.i)));
     }

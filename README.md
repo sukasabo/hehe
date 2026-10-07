@@ -22,7 +22,11 @@ then open http://localhost:8000.
 ## Editing shops
 
 All shop data lives in `data.js`. Photos live in `images/` and are referenced by file name
-under `photos.space` (interior and exterior) or `photos.food`.
+under `photos.space` (interior and exterior) or `photos.food`. The list, map and gallery thumbnails
+use the smaller copies in `images/thumbs/` (640px wide), so add one there for every new photo.
+
+After changing any file, bump the `?v=` number on the file links in `index.html` so visitors'
+browsers load the new version instead of an old saved copy.
 
 Coordinates, hours, ratings, review counts and photos come from Google Maps via the Places API
 (October 2026). Each photo's author is stored under `photos.credits` and shown in the gallery.
