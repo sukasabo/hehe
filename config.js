@@ -5,4 +5,4 @@
   this website (HTTP referrer https://sukasabo.github.io/*) and to the Places API (New).
   Leave it empty to show the ratings and hours saved in data.js instead.
 */
-window.GOOGLE_BROWSER_KEY = "";
+window.GOOGLE_BROWSER_KEY = "AIzaSyAaag3K-PaTU2hrxUCeQXDaZElqhpD3I8E";
