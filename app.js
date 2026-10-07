@@ -176,7 +176,13 @@
       document.getElementById("map").innerHTML = '<p class="empty">The map could not load. The list still works.</p>';
       return;
     }
-    map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([35.22, -80.84], 12);
+    map = L.map("map", { zoomControl: true, scrollWheelZoom: true, maxBoundsViscosity: 1 }).setView([35.22, -80.84], 12);
+    // Keep the map on Charlotte: no zooming out or panning far past the metro area.
+    const AREA = L.latLngBounds([34.98, -81.02], [35.42, -80.62]);
+    map.setMaxBounds(AREA.pad(0.2));
+    const lockZoom = () => map.getSize().x && map.setMinZoom(map.getBoundsZoom(AREA));
+    map.on("resize", lockZoom);
+    lockZoom();
     // OpenStreetMap tiles need no key; styles.css mutes them (and darkens them in dark mode).
     L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,

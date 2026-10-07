@@ -1,6 +1,7 @@
 /*
-  Entry page: tap the espresso cup, coffee pours in, floods the screen and lifts away
-  to reveal the guide. Shown once per browser tab; reloads go straight to the guide.
+  Entry page: click the cookie (or cup) and a kettle pours coffee into the cup, which floods
+  the screen in ripples and lifts away to reveal the guide. Shown once per browser tab;
+  reloads go straight to the guide.
 */
 (function () {
   const root = document.documentElement;
@@ -8,7 +9,6 @@
   if (!splash || root.classList.contains("entered")) return;
 
   const cup = document.getElementById("splash-cup");
-  const stream = splash.querySelector(".stream");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
   let started = false;
@@ -24,15 +24,16 @@
       return finish();
     }
 
-    // Line the stream up with the middle of the cup's rim.
+    // Center the flood's ripples on the spot where the stream meets the cup.
     const rim = cup.querySelector(".cup-rim").getBoundingClientRect();
-    stream.style.left = `${rim.left + rim.width / 2}px`;
-    stream.style.height = `${rim.top + rim.height / 2}px`;
+    const flood = splash.querySelector(".flood");
+    flood.style.setProperty("--rx", `${rim.left + rim.width / 2}px`);
+    flood.style.setProperty("--ry", `${rim.top + rim.height / 2 + 60}px`);
 
     splash.classList.add("is-pouring");
-    await wait(1300);
+    await wait(2500);
     splash.classList.add("is-flooding");
-    await wait(1000);
+    await wait(1500);
     splash.classList.add("is-leaving");
     await wait(800);
     finish();
