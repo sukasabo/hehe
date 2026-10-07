@@ -76,8 +76,8 @@
     const vinyl = ctx.createBuffer(1, ctx.sampleRate * 3, ctx.sampleRate);
     const v = vinyl.getChannelData(0);
     for (let i = 0; i < v.length; i++) {
-      v[i] = (Math.random() * 2 - 1) * 0.012;
-      if (Math.random() < 0.0004) v[i] += (Math.random() < 0.5 ? -1 : 1) * (0.25 + Math.random() * 0.4);
+      v[i] = (Math.random() * 2 - 1) * 0.0015;
+      if (Math.random() < 0.00008) v[i] += (Math.random() < 0.5 ? -1 : 1) * (0.08 + Math.random() * 0.12);
     }
     crackle = ctx.createBufferSource();
     crackle.buffer = vinyl;
@@ -87,7 +87,7 @@
     vinylTone.frequency.value = 2500;
     vinylTone.Q.value = 0.5;
     const vinylGain = ctx.createGain();
-    vinylGain.gain.value = 0.35;
+    vinylGain.gain.value = 0.12;
     crackle.connect(vinylTone).connect(vinylGain).connect(master);
     crackle.start();
   }
@@ -179,8 +179,8 @@
     if (pos === 7) bass(next.root + (Math.random() < 0.5 ? 1 : -1), when, EIGHTH, 0.18);
 
     if (pos === 0 || pos === 5) kick(when);
-    if (pos === 2 || pos === 6) hiss(when, "bandpass", 1800, 0.14, 0.22);
-    hiss(when, "highpass", 7000, 0.02 + Math.random() * 0.025, 0.05);
+    if (pos === 2 || pos === 6) hiss(when, "bandpass", 1500, 0.07, 0.18);
+    if (pos % 2 === 0) hiss(when, "highpass", 8000, 0.006 + Math.random() * 0.006, 0.04);
 
     if (pos !== 0 && Math.random() < 0.22) {
       const m = bar.scale[Math.floor(Math.random() * bar.scale.length)];

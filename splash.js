@@ -27,10 +27,9 @@
     // Line the stream up with the middle of the cup's rim.
     const rim = cup.querySelector(".mouth").getBoundingClientRect();
     stream.style.left = `${rim.left + rim.width / 2}px`;
-    // Pour from just under the awning.
-    const top = splash.querySelector(".awning").getBoundingClientRect().height - 14;
-    stream.style.top = `${top}px`;
-    stream.style.height = `${rim.top + rim.height / 2 - top}px`;
+    // Pour from the very top of the screen down into the cup.
+    stream.style.top = "0px";
+    stream.style.height = `${rim.top + rim.height / 2}px`;
 
     splash.classList.add("is-pouring");
     await wait(1300);
