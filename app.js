@@ -272,6 +272,7 @@
     detail.querySelector(".detail-panel").focus();
     bindDetail(s, tab);
     if (map) map.panTo([s.lat, s.lng], { animate: true });
+    refreshLive(s);
   }
 
   function closeDetail() {
@@ -500,9 +501,11 @@
   });
 
   // ---------- Live Google data ----------
-  // With a browser key in config.js, ratings, review counts and hours come from Google on
-  // each visit (kept for 30 minutes per browser tab); otherwise the values in data.js are used.
-  const LIVE_TTL = 30 * 60 * 1000;
+  // With a browser key in config.js, a shop's rating, review count and hours are checked with
+  // Google when someone opens that shop (one lookup), and kept in the browser for 12 hours.
+  // The list and map show the saved values from data.js plus anything already checked.
+  const LIVE_TTL = 12 * 60 * 60 * 1000;
+  const liveKey = (s) => `live-google:${s.id}`;
 
   function googleHours(periods) {
     const days = [null, null, null, null, null, null, null];
@@ -515,35 +518,58 @@
     return days;
   }
 
-  async function loadLive() {
-    const key = window.GOOGLE_BROWSER_KEY;
-    if (!key) return;
-    let cache = null;
-    try { cache = JSON.parse(sessionStorage.getItem("live-google")); } catch {}
-    if (!cache || Date.now() - cache.t > LIVE_TTL) {
-      const results = await Promise.all(
-        SHOPS.map((s) =>
-          fetch(`https://places.googleapis.com/v1/places/${s.placeId}`, {
-            headers: { "X-Goog-Api-Key": key, "X-Goog-FieldMask": "rating,userRatingCount,regularOpeningHours" },
-          })
-            .then((r) => (r.ok ? r.json() : null))
-            .catch(() => null)
-        )
-      );
-      if (!results.some(Boolean)) return;
-      cache = { t: Date.now(), data: Object.fromEntries(SHOPS.map((s, i) => [s.id, results[i]])) };
-      try { sessionStorage.setItem("live-google", JSON.stringify(cache)); } catch {}
+  function readLive(s) {
+    try {
+      const c = JSON.parse(localStorage.getItem(liveKey(s)));
+      return c && Date.now() - c.t < LIVE_TTL ? c.d : null;
+    } catch {
+      return null;
     }
+  }
+
+  // Apply Google's values to a shop; returns true if anything shown on screen changed.
+  function applyLive(s, d) {
+    const before = JSON.stringify([s.rating, s.reviews, s.hours]);
+    if (d.rating) s.rating = d.rating;
+    if (d.userRatingCount) s.reviews = d.userRatingCount;
+    if (d.regularOpeningHours?.periods) s.hours = googleHours(d.regularOpeningHours.periods);
+    const pin = markers[s.id]?.getElement()?.querySelector(".pin");
+    if (pin) pin.textContent = s.rating.toFixed(1);
+    return JSON.stringify([s.rating, s.reviews, s.hours]) !== before;
+  }
+
+  // On load: use whatever this browser already checked recently. No lookups.
+  function loadSavedLive() {
+    let changed = false;
     SHOPS.forEach((s) => {
-      const d = cache.data[s.id];
-      if (!d) return;
-      if (d.rating) s.rating = d.rating;
-      if (d.userRatingCount) s.reviews = d.userRatingCount;
-      if (d.regularOpeningHours?.periods) s.hours = googleHours(d.regularOpeningHours.periods);
-      const pin = markers[s.id]?.getElement()?.querySelector(".pin");
-      if (pin) pin.textContent = s.rating.toFixed(1);
+      const d = readLive(s);
+      if (d && applyLive(s, d)) changed = true;
     });
+    if (changed) renderList();
+  }
+
+  // When a shop is opened: one lookup, unless checked in the last 12 hours.
+  async function refreshLive(s) {
+    const key = window.GOOGLE_BROWSER_KEY;
+    if (!key || readLive(s)) return;
+    const d = await fetch(`https://places.googleapis.com/v1/places/${s.placeId}`, {
+      headers: { "X-Goog-Api-Key": key, "X-Goog-FieldMask": "rating,userRatingCount,regularOpeningHours" },
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .catch(() => null);
+    if (!d) return;
+    try { localStorage.setItem(liveKey(s), JSON.stringify({ t: Date.now(), d })); } catch {}
+    if (!applyLive(s, d)) return;
     renderList();
+    // Redraw the open panel in place if it is still showing this shop.
+    if (detail.getAttribute("aria-hidden") === "false" && detailBody.querySelector("#detail-name")?.textContent === s.name) {
+      const panel = detail.querySelector(".detail-panel");
+      const top = panel.scrollTop;
+      const tab = detailBody.querySelector('.tabs [aria-selected="true"]')?.dataset.tab || "space";
+      detailBody.innerHTML = detailHTML(s);
+      bindDetail(s, tab);
+      panel.scrollTop = top;
+    }
   }
 
   // ---------- Light / dark switch ----------
@@ -571,5 +597,5 @@
 
   initMap();
   renderList();
-  loadLive();
+  loadSavedLive();
 })();

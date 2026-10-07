@@ -38,7 +38,7 @@ Crowd curves and workability are estimates.
 
 ## Live ratings and hours
 
-Put a Google API key in `config.js` and the site loads current ratings, review counts and hours
-from Google on each visit (falling back to the saved values in `data.js`). The key is public, so
-restrict it to this site's address and to the Places API (New), and cap its daily usage in Google Cloud.
-
+Put a Google API key in `config.js` and opening a shop checks its current rating, review count
+and hours with Google (one lookup per shop opened, remembered in the browser for 12 hours).
+The list and map use the saved values in `data.js` until then. The key is public, so restrict it
+to this site's address and to the Places API (New), and cap its daily usage in Google Cloud.
