@@ -165,11 +165,8 @@
   listEl.addEventListener("mouseleave", () => setActive(null));
 
   // ---------- Map ----------
-  let map, tiles;
+  let map;
   const markers = {};
-  const prefersDark = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const tileURL = () =>
-    `https://{s}.basemaps.cartocdn.com/${prefersDark() ? "dark_all" : "light_all"}/{z}/{x}/{y}{r}.png`;
 
   function initMap() {
     if (!window.L) {
@@ -177,11 +174,11 @@
       return;
     }
     map = L.map("map", { zoomControl: true, scrollWheelZoom: true }).setView([35.22, -80.84], 12);
-    tiles = L.tileLayer(tileURL(), {
+    // OpenStreetMap tiles need no key; styles.css mutes them (and darkens them in dark mode).
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(map);
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => tiles.setUrl(tileURL()));
 
     SHOPS.forEach((s) => {
       const icon = L.divIcon({ className: "pin-wrap", html: `<span class="pin">${s.rating.toFixed(1)}</span>`, iconSize: [0, 0] });

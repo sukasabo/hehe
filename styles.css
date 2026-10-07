@@ -89,6 +89,10 @@ select {
 .layout[data-view="list"] .map-wrap { display: none; }
 .map-wrap { position: relative; border-left: 1px solid var(--line); }
 #map { position: absolute; inset: 0; background: var(--bg); }
+#map .leaflet-tile-pane { filter: grayscale(.85) sepia(.12) brightness(1.04) contrast(.92); }
+@media (prefers-color-scheme: dark) {
+  #map .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) grayscale(.85) brightness(.85) contrast(.9); }
+}
 
 .shop-list { list-style: none; margin: 0; padding: 16px; overflow-y: auto; display: grid; gap: 14px; align-content: start; grid-auto-rows: max-content; }
 .layout[data-view="list"] .shop-list {
