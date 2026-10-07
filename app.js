@@ -28,6 +28,7 @@
     return !!h && hour >= h[0] && hour < h[1];
   };
   const hoursLabel = (h) => (h ? `${fmtHour(h[0])} – ${fmtHour(h[1])}` : "Closed");
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 
   // Estimated busyness 0-100 for a given day and hour.
   function busyness(shop, day, hour) {
@@ -368,7 +369,10 @@
         thumbs.innerHTML = "";
         return;
       }
-      main.innerHTML = `<img src="images/${pics[idx]}" alt="${tab === "space" ? "The space at" : "Food and drink at"} ${s.name}">`;
+      const credit = s.photos.credits?.[pics[idx]];
+      main.innerHTML =
+        `<img src="images/${pics[idx]}" alt="${tab === "space" ? "The space at" : "Food and drink at"} ${s.name}">` +
+        (credit ? `<span class="credit">Photo: ${esc(credit)} via Google</span>` : "");
       thumbs.innerHTML =
         pics.length > 1
           ? pics.map((p, i) => `<button aria-current="${i === idx}" data-i="${i}" aria-label="Photo ${i + 1}"><img src="images/${p}" alt=""></button>`).join("")

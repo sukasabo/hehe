@@ -24,6 +24,6 @@ then open http://localhost:8000.
 All shop data lives in `data.js`. Photos live in `images/` and are referenced by file name
 under `photos.space` (interior and exterior) or `photos.food`.
 
-Ratings, prices and closing times come from Google listings (October 2026). Opening times,
-weekend hours, crowd curves and workability are estimates and should be checked against
-each shop's listing.
+Coordinates, hours, ratings, review counts and photos come from Google Maps via the Places API
+(October 2026). Each photo's author is stored under `photos.credits` and shown in the gallery.
+Crowd curves and workability are estimates.
