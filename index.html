@@ -8,9 +8,9 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2714%27 fill=%27none%27 stroke=%27%239a7442%27 stroke-width=%272%27/%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%275%27 fill=%27%239a7442%27/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Chewy&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-  <link rel="stylesheet" href="styles.css?v=7" />
+  <link rel="stylesheet" href="styles.css?v=8" />
   <script>
     // Apply the saved theme and skip the entry page before anything paints.
     try {
@@ -23,78 +23,36 @@
 <body>
   <div class="splash" id="splash">
     <div class="splash-inner">
-      <button class="splash-cup" id="splash-cup" aria-label="Click me: pour a cup and enter Charlotte Coffee Atlas">
-        <svg viewBox="0 0 320 240" aria-hidden="true">
+      <button class="splash-cup" id="splash-cup" aria-label="Pour a cup and enter Charlotte Coffee Atlas">
+        <svg viewBox="0 0 220 180" aria-hidden="true">
           <defs>
-            <clipPath id="cup-inside"><path d="M122 116 H218 L210 176 Q207 192 190 192 H150 Q133 192 130 176 Z" /></clipPath>
-            <clipPath id="cup-surface"><ellipse cx="170" cy="112" rx="51" ry="5.5" /></clipPath>
-            <linearGradient id="stream-shade" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0" stop-color="#0d0603" />
-              <stop offset=".42" stop-color="#3b2010" />
-              <stop offset=".52" stop-color="#8a5a38" />
-              <stop offset=".64" stop-color="#2a1509" />
-              <stop offset="1" stop-color="#0d0603" />
-            </linearGradient>
-            <linearGradient id="coffee-depth" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0" stop-color="#24120a" />
-              <stop offset="1" stop-color="#0e0603" />
-            </linearGradient>
+            <clipPath id="cup-mouth"><ellipse cx="110" cy="60" rx="51" ry="9.5" /></clipPath>
           </defs>
-
-          <!-- Kettle: drawn upright around its own origin, tipped into pouring position by CSS. -->
-          <g transform="translate(282 25)">
-            <g class="kettle">
-              <path class="kettle-spout" d="M-36 30 Q-70 34 -74 0 Q-78 -40 -100 -52" />
-              <path class="kettle-handle" d="M40 -18 Q80 -14 72 24 Q67 42 42 34" />
-              <path class="kettle-body" d="M-42 40 L-38 -20 Q-36 -42 0 -44 Q36 -42 38 -20 L42 40 Z" />
-              <path class="kettle-sheen" d="M-26 -24 Q-24 -34 -10 -37" />
-              <ellipse class="kettle-body" cx="0" cy="-48" rx="9" ry="5" />
-            </g>
-          </g>
-
           <g class="steam">
-            <path d="M152 96 q-8 -12 0 -22 q8 -10 0 -20" />
-            <path d="M170 98 q-8 -12 0 -22 q8 -10 0 -20" />
-            <path d="M188 96 q-8 -12 0 -22 q8 -10 0 -20" />
+            <path d="M92 40 q-8 -12 0 -22 q8 -10 0 -20" />
+            <path d="M110 42 q-8 -12 0 -22 q8 -10 0 -20" />
+            <path d="M128 40 q-8 -12 0 -22 q8 -10 0 -20" />
           </g>
-          <ellipse class="saucer" cx="170" cy="204" rx="98" ry="15" />
-          <path class="handle" d="M216 132 q30 -2 28 22 q-2 22 -34 22" />
-          <path class="cup-glass" d="M118 112 H222 L213 178 Q209 198 188 198 H152 Q131 198 127 178 Z" />
-          <g clip-path="url(#cup-inside)">
+          <ellipse class="saucer" cx="110" cy="152" rx="86" ry="13" />
+          <path class="handle" d="M156 76 q32 -2 30 24 q-2 22 -38 20" />
+          <path class="cup-body" d="M56 60 C56 114 76 147 110 147 C144 147 164 114 164 60 Z" />
+          <ellipse class="cup-mouth" cx="110" cy="60" rx="54" ry="11" />
+          <g clip-path="url(#cup-mouth)">
             <g class="coffee">
-              <rect x="110" y="120" width="120" height="90" fill="url(#coffee-depth)" />
-              <rect class="crema" x="110" y="116" width="120" height="5" />
+              <ellipse class="coffee-top" cx="110" cy="60" rx="52" ry="9.5" />
+              <ellipse class="coffee-sheen" cx="96" cy="57" rx="16" ry="2.2" />
             </g>
-          </g>
-          <ellipse class="cup-rim" cx="170" cy="112" rx="52" ry="6" />
-          <ellipse class="cup-surface" cx="170" cy="112" rx="51" ry="5.5" />
-          <g class="cup-ripples" clip-path="url(#cup-surface)">
-            <ellipse cx="170" cy="112" rx="50" ry="5" />
-            <ellipse cx="170" cy="112" rx="50" ry="5" />
-            <ellipse cx="170" cy="112" rx="50" ry="5" />
-          </g>
-          <path class="pour" d="M168.4 40 L171.6 40 Q171.1 80 170.9 113 L169.1 113 Q168.9 80 168.4 40 Z" />
-
-          <!-- "Click me" cookie, after the Eat Me cakes in Alice in Wonderland. -->
-          <g class="cookie">
-            <circle r="50" class="cookie-base" />
-            <circle r="50" class="cookie-scallop" />
-            <circle r="39" class="icing" />
-            <circle r="36.5" class="icing-line" />
-            <circle r="31" class="icing-dashes" />
-            <text y="-2" class="icing-text">CLICK</text>
-            <text y="21" class="icing-text">ME</text>
           </g>
         </svg>
       </button>
       <p class="splash-title">Charlotte Coffee Atlas</p>
+      <p class="splash-hint">Tap the cup to pour</p>
     </div>
+    <div class="stream" aria-hidden="true"></div>
     <div class="flood" aria-hidden="true">
       <svg class="wave" viewBox="0 0 1200 60" preserveAspectRatio="none">
-        <path class="wave-fill" d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0 Z" />
-        <path class="wave-sheen" d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30" />
+        <path d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0 Z" />
       </svg>
-      <span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span>
     </div>
   </div>
 
@@ -167,10 +125,10 @@
     workability notes are our own estimates. Photos are credited to the people who posted them on Google.
   </footer>
 
-  <script src="splash.js?v=7"></script>
+  <script src="splash.js?v=8"></script>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script src="config.js?v=7"></script>
-  <script src="data.js?v=7"></script>
-  <script src="app.js?v=7"></script>
+  <script src="config.js?v=8"></script>
+  <script src="data.js?v=8"></script>
+  <script src="app.js?v=8"></script>
 </body>
 </html>
