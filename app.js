@@ -78,7 +78,6 @@
       if (filters.has("late") && !((hoursOn(s, day) || [0, 0])[1] > 18)) return false;
       if (filters.has("work") && s.work.score < 4) return false;
       if (filters.has("quiet") && !(isOpen(s, day, hour) && busyness(s, day, hour) < 60)) return false;
-      if (filters.has("photos") && !s.photos.space.length) return false;
       if (filters.has("budget") && s.price !== 1) return false;
       return true;
     });
