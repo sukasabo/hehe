@@ -2,6 +2,9 @@
 
 A curated guide to sixteen Charlotte coffee shops, organized by atmosphere rather than menu.
 
+- **Entry page** — tap the espresso cup to pour in (`splash.js`). Shown once per browser tab.
+- **Light and dark** — follows the device until the visitor picks one with the header switch.
+
 - **Map and list views** — hover a shop in the list to light up its pin; hover a pin for a photo preview; click either for the full profile.
 - **Atmosphere** — a headline, a short description, sound and lighting, and photos of the space (food and drink photos are kept in a separate tab).
 - **Hours** — full week, with sorting by open latest, opens earliest and longest hours.

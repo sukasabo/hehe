@@ -10,9 +10,52 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-  <link rel="stylesheet" href="styles.css?v=4" />
+  <link rel="stylesheet" href="styles.css?v=5" />
+  <script>
+    // Apply the saved theme and skip the entry page before anything paints.
+    try {
+      var t = localStorage.getItem("theme");
+      if (t) document.documentElement.dataset.theme = t;
+      if (sessionStorage.getItem("entered")) document.documentElement.classList.add("entered");
+    } catch (e) {}
+  </script>
 </head>
 <body>
+  <div class="splash" id="splash">
+    <div class="splash-inner">
+      <button class="splash-cup" id="splash-cup" aria-label="Pour a cup and enter Charlotte Coffee Atlas">
+        <svg viewBox="0 0 220 180" aria-hidden="true">
+          <defs>
+            <clipPath id="cup-inside"><path d="M62 64 H158 L150 124 Q147 140 130 140 H90 Q73 140 70 124 Z" /></clipPath>
+          </defs>
+          <g class="steam">
+            <path d="M92 44 q-8 -12 0 -22 q8 -10 0 -20" />
+            <path d="M110 46 q-8 -12 0 -22 q8 -10 0 -20" />
+            <path d="M128 44 q-8 -12 0 -22 q8 -10 0 -20" />
+          </g>
+          <ellipse class="saucer" cx="110" cy="152" rx="86" ry="13" />
+          <path class="handle" d="M156 80 q30 -2 28 22 q-2 22 -34 22" />
+          <path class="cup-glass" d="M58 60 H162 L153 126 Q149 146 128 146 H92 Q71 146 67 126 Z" />
+          <g clip-path="url(#cup-inside)">
+            <g class="coffee">
+              <rect class="coffee-body" x="50" y="70" width="120" height="90" />
+              <rect class="crema" x="50" y="64" width="120" height="8" />
+            </g>
+          </g>
+          <ellipse class="cup-rim" cx="110" cy="60" rx="52" ry="6" />
+        </svg>
+      </button>
+      <p class="splash-title">Charlotte Coffee Atlas</p>
+      <p class="splash-hint">Tap the cup to pour</p>
+    </div>
+    <div class="stream" aria-hidden="true"></div>
+    <div class="flood" aria-hidden="true">
+      <svg class="wave" viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0 30 Q150 0 300 30 T600 30 T900 30 T1200 30 V60 H0 Z" />
+      </svg>
+    </div>
+  </div>
+
   <header class="masthead">
     <div class="brand">
       <span class="brand-mark" aria-hidden="true"></span>
@@ -21,9 +64,12 @@
         <p class="tagline">Sixteen rooms worth sitting in, chosen for their atmosphere.</p>
       </div>
     </div>
-    <div class="view-toggle" role="tablist" aria-label="View">
-      <button role="tab" data-view="map" aria-selected="true">Map</button>
-      <button role="tab" data-view="list" aria-selected="false">List</button>
+    <div class="masthead-tools">
+      <button class="theme-toggle" id="theme-toggle"></button>
+      <div class="view-toggle" role="tablist" aria-label="View">
+        <button role="tab" data-view="map" aria-selected="true">Map</button>
+        <button role="tab" data-view="list" aria-selected="false">List</button>
+      </div>
     </div>
   </header>
 
@@ -80,9 +126,10 @@
     workability notes are our own estimates. Photos are credited to the people who posted them on Google.
   </footer>
 
+  <script src="splash.js?v=5"></script>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script src="config.js?v=4"></script>
-  <script src="data.js?v=4"></script>
-  <script src="app.js?v=4"></script>
+  <script src="config.js?v=5"></script>
+  <script src="data.js?v=5"></script>
+  <script src="app.js?v=5"></script>
 </body>
 </html>
