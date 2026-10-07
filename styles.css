@@ -280,7 +280,10 @@ select {
   .toolbar { padding: 12px 16px; gap: 12px; }
   .count { margin-left: 0; width: 100%; }
   .layout { display: flex; flex-direction: column-reverse; height: auto; }
-  .map-wrap { height: 55vh; border-left: 0; border-bottom: 1px solid var(--line); }
+  .map-wrap {
+    height: 46vh; margin: 12px 16px 4px; border: 1px solid var(--line); border-radius: 18px;
+    overflow: hidden; box-shadow: var(--shadow);
+  }
   .shop-list { overflow: visible; padding: 16px; }
   .layout[data-view="list"] .shop-list { padding: 16px; grid-template-columns: 1fr; }
   .card { grid-template-columns: 112px 1fr; }
@@ -302,13 +305,11 @@ html:not(.entered) body { overflow: hidden; }
   background: var(--paper); color: var(--sketch); color-scheme: light;
   overflow: hidden; transition: transform .8s cubic-bezier(.7, 0, .3, 1), opacity .25s;
 }
-.awning {
-  position: absolute; top: 0; left: 0; right: 0; height: 64px;
-  background: repeating-linear-gradient(90deg, var(--awning) 0 36px, var(--paper) 36px 72px);
-  -webkit-mask: radial-gradient(18px 14px at 18px 50px, #000 98%, transparent) 0 0 / 36px 100% repeat-x,
-    linear-gradient(#000 0 0) 0 0 / 100% 50px no-repeat;
-  mask: radial-gradient(18px 14px at 18px 50px, #000 98%, transparent) 0 0 / 36px 100% repeat-x,
-    linear-gradient(#000 0 0) 0 0 / 100% 50px no-repeat;
+/* Awning: pink tabs with rounded ends, outlined at the same weight as the cup's lines. */
+.awning { position: absolute; top: 0; left: 0; right: 0; height: 64px; display: flex; gap: 36px; overflow: hidden; }
+.awning span {
+  flex: none; width: 36px; height: 62px; background: var(--awning);
+  border: 2px solid var(--sketch); border-top: 0; border-radius: 0 0 18px 18px;
 }
 .splash-inner { display: grid; justify-items: center; gap: 10px; padding: 24px; text-align: center; }
 .splash-eyebrow { margin: 18px 0 0; font: italic 500 17px var(--serif); color: #9a7442; letter-spacing: .04em; }

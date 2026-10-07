@@ -8,6 +8,10 @@
   if (!splash) return;
 
   const cup = document.getElementById("splash-cup");
+
+  // Fill the awning with enough stripes to span the screen.
+  const awning = splash.querySelector(".awning");
+  awning.innerHTML = "<span></span>".repeat(Math.ceil(Math.max(screen.width, innerWidth) / 72) + 1);
   const stream = splash.querySelector(".stream");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
