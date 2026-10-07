@@ -2,7 +2,7 @@
 
 A curated guide to sixteen Charlotte coffee shops, organized by atmosphere rather than menu.
 
-- **Entry page** — a sketched French cafe cup; tap it to pour in (`splash.js`). Shown once per browser tab.
+- **Entry page** — a sketched French cafe cup; tap it to pour in (`splash.js`). Plays on every visit and refresh.
 - **Music** — an original lofi-jazz loop generated in the browser (`music.js`), with an on/off button.
 - **Light and dark** — follows the device until the visitor picks one with the header switch.
 

@@ -10,13 +10,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=10" />
   <script>
-    // Apply the saved theme and skip the entry page before anything paints.
+    // Apply the saved theme before anything paints.
     try {
       var t = localStorage.getItem("theme");
       if (t) document.documentElement.dataset.theme = t;
-      if (sessionStorage.getItem("entered")) document.documentElement.classList.add("entered");
     } catch (e) {}
   </script>
 </head>
@@ -25,7 +24,7 @@
     <div class="awning" aria-hidden="true"></div>
     <div class="splash-inner">
       <button class="splash-cup" id="splash-cup" aria-label="Pour a cup and enter Charlotte Coffee Atlas">
-        <!-- Hand-drawn style cup, drawn for this site. -->
+        <!-- Loose, sketchy cup drawn for this site: doubled strokes that overshoot, like quick ink. -->
         <svg viewBox="0 0 260 190" aria-hidden="true">
           <defs>
             <filter id="sketch" x="-10%" y="-10%" width="120%" height="120%">
@@ -36,33 +35,41 @@
           </defs>
           <path class="steam" d="M114 66 C104 52 124 46 115 32 C106 18 125 12 117 -2" />
           <g class="lines">
-            <path class="table" d="M-600 156 H44 M206 156 H860" />
-            <path class="table" d="M-600 184 C-200 179 200 189 860 182" />
+            <path class="table" d="M-600 156 H46 M204 155 C400 154 600 157 860 156" />
+            <path class="table" d="M-600 183 C-200 178 200 190 860 181" />
+            <path class="table faint" d="M-600 188 C-100 186 300 192 860 187" />
           </g>
           <g class="lines" filter="url(#sketch)">
+            <!-- saucer -->
             <path class="paper" d="M40 153 C58 141 184 139 214 150 C224 157 200 166 128 167 C68 168 32 162 40 153 Z" />
-            <path d="M40 153 C58 141 184 139 214 150 C224 157 200 166 128 167 C68 168 32 162 40 153" />
-            <path class="faint" d="M50 157 C80 163 176 163 206 154" />
-            <path d="M174 92 C194 82 210 90 205 106 C200 121 184 127 166 129" />
-            <path class="faint" d="M174 100 C188 94 199 99 195 110 C191 118 181 121 170 122" />
+            <path d="M36 154 C52 141 186 138 216 150 C226 158 198 166 126 167 C66 168 30 161 44 150" />
+            <path class="loose" d="M44 151 C70 143 180 141 210 152 C218 158 190 164 120 165 C76 166 40 160 42 154" />
+            <path class="faint" d="M54 158 C86 164 172 163 204 155" />
+            <!-- handle -->
+            <path d="M172 92 C194 80 212 89 206 106 C201 121 184 128 164 130" />
+            <path class="loose" d="M176 95 C196 85 208 93 203 107 C198 120 184 125 168 127" />
+            <path class="faint" d="M175 101 C189 94 199 100 195 110 C191 118 181 121 170 122" />
+            <!-- cup body -->
             <path class="paper" d="M56 78 C58 118 78 148 104 152 L134 152 C160 148 178 118 180 78 Z" />
-            <path d="M56 78 C58 118 78 148 104 152 C116 154 124 154 134 152 C160 148 178 118 180 78" />
-            <path class="faint" d="M66 86 C70 118 86 140 110 146" />
+            <path d="M55 74 C57 118 77 148 103 152 C115 155 125 155 136 152 C162 147 178 116 181 76" />
+            <path class="loose" d="M60 80 C63 120 82 147 108 151 C122 153 130 152 140 150 C158 145 173 120 177 84" />
+            <path class="faint" d="M67 88 C71 120 87 141 112 146" />
+            <path class="faint" d="M96 150 C110 156 140 156 152 148" />
           </g>
           <ellipse class="mouth" cx="118" cy="78" rx="62" ry="9.5" />
           <g clip-path="url(#cup-mouth)">
             <ellipse class="coffee" cx="118" cy="79" rx="60" ry="8.5" />
           </g>
           <g class="lines" filter="url(#sketch)">
-            <ellipse cx="118" cy="78" rx="62" ry="9.5" />
-            <path class="faint" d="M58 76 C80 70 160 69 178 75" />
+            <!-- rim: two loose loops that don't quite close -->
+            <path d="M52 79 C54 66 176 64 182 77 C186 88 64 92 58 80 C56 74 80 70 104 69" />
+            <path class="loose" d="M60 76 C78 68 166 67 179 75 C184 84 130 89 96 87 C70 85 56 82 57 77" />
           </g>
         </svg>
       </button>
       <p class="splash-eyebrow">un petit guide des cafés</p>
       <p class="splash-title">Charlotte Coffee Atlas</p>
       <p class="splash-hint">Tap the cup to pour</p>
-      <button class="splash-music" id="splash-music" aria-pressed="true">Music on</button>
     </div>
     <div class="stream" aria-hidden="true"></div>
     <div class="flood" aria-hidden="true">
@@ -142,11 +149,11 @@
     workability notes are our own estimates. Photos are credited to the people who posted them on Google.
   </footer>
 
-  <script src="music.js?v=9"></script>
-  <script src="splash.js?v=9"></script>
+  <script src="music.js?v=10"></script>
+  <script src="splash.js?v=10"></script>
   <script src="vendor/leaflet/leaflet.js"></script>
-  <script src="config.js?v=9"></script>
-  <script src="data.js?v=9"></script>
-  <script src="app.js?v=9"></script>
+  <script src="config.js?v=10"></script>
+  <script src="data.js?v=10"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>

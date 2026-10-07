@@ -294,16 +294,13 @@ select {
 .g-credit { font: 400 11px Roboto, Arial, sans-serif; color: var(--muted); letter-spacing: 0; }
 
 /* Entry page: minimal French cafe, sketched cup on cream paper under a striped awning. */
-:root { --coffee: #1c0e07; --coffee-light: #2e170b; --crema: #4a2814; --paper: #fbf6ec; --awning: #f3c4d2; --mouth: #fbf6ec; }
-:root[data-theme="dark"] { --paper: #1a1612; --awning: #8e5b6b; --mouth: #3a3129; --crema: #7a4a2a; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --paper: #1a1612; --awning: #8e5b6b; --mouth: #3a3129; --crema: #7a4a2a; }
-}
+:root { --coffee: #14100e; --coffee-light: #2a2320; --crema: #3a302b; --paper: #f1e5cc; --awning: #f3c4d2; --sketch: #2b231d; }
 html:not(.entered) body { overflow: hidden; }
 .entered .splash { display: none; }
 .splash {
   position: fixed; inset: 0; z-index: 3000; display: grid; place-items: center;
-  background: var(--paper); overflow: hidden; transition: transform .8s cubic-bezier(.7, 0, .3, 1), opacity .25s;
+  background: var(--paper); color: var(--sketch); color-scheme: light;
+  overflow: hidden; transition: transform .8s cubic-bezier(.7, 0, .3, 1), opacity .25s;
 }
 .awning {
   position: absolute; top: 0; left: 0; right: 0; height: 64px;
@@ -314,17 +311,11 @@ html:not(.entered) body { overflow: hidden; }
     linear-gradient(#000 0 0) 0 0 / 100% 50px no-repeat;
 }
 .splash-inner { display: grid; justify-items: center; gap: 10px; padding: 24px; text-align: center; }
-.splash-eyebrow { margin: 18px 0 0; font: italic 500 17px var(--serif); color: var(--accent); letter-spacing: .04em; }
+.splash-eyebrow { margin: 18px 0 0; font: italic 500 17px var(--serif); color: #9a7442; letter-spacing: .04em; }
 .splash-title { margin: 0; font: italic 500 40px/1.05 var(--serif); letter-spacing: .01em; }
-.splash-hint { margin: 4px 0 0; font: italic 500 17px var(--serif); color: var(--muted); transition: opacity .3s; }
-.splash-music {
-  margin-top: 6px; padding: 5px 14px; border: 1px solid var(--line); border-radius: 999px; background: none;
-  font: 12px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); cursor: pointer;
-  transition: opacity .3s;
-}
-.splash-music[aria-pressed="true"] { border-color: var(--awning); background: var(--pink-soft); color: var(--ink); }
+.splash-hint { margin: 4px 0 0; font: italic 500 17px var(--serif); color: #776c60; transition: opacity .3s; }
 .splash-cup {
-  width: min(300px, 74vw); padding: 0; border: 0; background: none; cursor: pointer; color: var(--ink);
+  width: min(300px, 74vw); padding: 0; border: 0; background: none; cursor: pointer; color: var(--sketch);
   border-radius: 24px; transition: transform .25s;
 }
 .splash-cup:hover { transform: translateY(-3px) rotate(-1deg); }
@@ -334,9 +325,10 @@ html:not(.entered) body { overflow: hidden; }
   fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
 }
 .splash-cup .lines .paper { fill: var(--paper); stroke: none; }
-.splash-cup .lines .faint { stroke-width: 1.1; opacity: .55; }
+.splash-cup .lines .loose { stroke-width: 1.2; opacity: .75; }
+.splash-cup .lines .faint { stroke-width: 1.1; opacity: .5; }
 .splash-cup .lines .table { stroke-width: 1.2; opacity: .7; }
-.splash-cup .mouth { fill: var(--mouth); }
+.splash-cup .mouth { fill: var(--paper); }
 /* Seen from above: the coffee surface starts small and deep in the cup and rises to the rim. */
 .splash-cup .coffee {
   fill: var(--coffee); stroke: var(--crema); stroke-width: 2.5;
@@ -363,7 +355,7 @@ html:not(.entered) body { overflow: hidden; }
 .splash.is-pouring .stream { transform: scaleY(1); }
 .splash.is-pouring .coffee { transform: none; opacity: 1; }
 .splash.is-pouring .steam { animation: draw-steam 1.6s ease-out 1s forwards; }
-.splash.is-pouring .splash-hint, .splash.is-pouring .splash-music { opacity: 0; pointer-events: none; }
+.splash.is-pouring .splash-hint { opacity: 0; pointer-events: none; }
 .splash.is-pouring .splash-cup { cursor: default; transform: none; }
 .splash.is-flooding .flood { transform: translateY(0); }
 .splash.is-leaving { transform: translateY(-100%); }

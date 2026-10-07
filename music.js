@@ -3,8 +3,8 @@
   API (no audio files, nothing to license). Electric-piano chords over a ii-V-I-VI loop,
   a soft bass line, brushed drums with a lazy swing, the odd melody note and vinyl crackle.
 
-  Browsers only allow sound after a tap or click, so it starts from the entry page cup or
-  the header button. The visitor's on/off choice is remembered.
+  Browsers only allow sound after a tap or click, so it starts from the entry page cup
+  (unless switched off) or the header button. The visitor's on/off choice is remembered.
 */
 (function () {
   const BPM = 72;
@@ -232,20 +232,11 @@
       btn.setAttribute("aria-label", playing ? "Turn music off" : "Turn music on");
       btn.title = btn.getAttribute("aria-label");
     }
-    const pick = document.getElementById("splash-music");
-    if (pick) {
-      pick.setAttribute("aria-pressed", prefOn());
-      pick.textContent = prefOn() ? "Music on" : "Music off";
-    }
   }
 
   document.getElementById("music-toggle")?.addEventListener("click", () => {
     playing ? stop() : start();
     savePref(playing);
-    sync();
-  });
-  document.getElementById("splash-music")?.addEventListener("click", () => {
-    savePref(!prefOn());
     sync();
   });
   sync();

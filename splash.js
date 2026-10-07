@@ -1,11 +1,11 @@
 /*
-  Entry page: tap the coffee cup, coffee pours in (and the music starts), floods the screen and lifts away
-  to reveal the guide. Shown once per browser tab; reloads go straight to the guide.
+  Entry page: tap the coffee cup, coffee pours in (and the music starts), floods the screen
+  and lifts away to reveal the guide. Shown on every page load.
 */
 (function () {
   const root = document.documentElement;
   const splash = document.getElementById("splash");
-  if (!splash || root.classList.contains("entered")) return;
+  if (!splash) return;
 
   const cup = document.getElementById("splash-cup");
   const stream = splash.querySelector(".stream");
@@ -16,7 +16,6 @@
   cup.addEventListener("click", async () => {
     if (started) return;
     started = true;
-    try { sessionStorage.setItem("entered", "1"); } catch {}
     window.Music?.startIfWanted();
 
     if (reduceMotion) {
