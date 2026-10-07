@@ -490,6 +490,54 @@
     };
   });
 
+  // ---------- Live Google data ----------
+  // With a browser key in config.js, ratings, review counts and hours come from Google on
+  // each visit (kept for 30 minutes per browser tab); otherwise the values in data.js are used.
+  const LIVE_TTL = 30 * 60 * 1000;
+
+  function googleHours(periods) {
+    const days = [null, null, null, null, null, null, null];
+    periods.forEach(({ open: o, close: c }) => {
+      if (!c) return (days[o.day] = [0, 24]);
+      const start = o.hour + o.minute / 60;
+      const end = c.hour + c.minute / 60 + (c.day !== o.day ? 24 : 0);
+      days[o.day] = [start, end];
+    });
+    return days;
+  }
+
+  async function loadLive() {
+    const key = window.GOOGLE_BROWSER_KEY;
+    if (!key) return;
+    let cache = null;
+    try { cache = JSON.parse(sessionStorage.getItem("live-google")); } catch {}
+    if (!cache || Date.now() - cache.t > LIVE_TTL) {
+      const results = await Promise.all(
+        SHOPS.map((s) =>
+          fetch(`https://places.googleapis.com/v1/places/${s.placeId}`, {
+            headers: { "X-Goog-Api-Key": key, "X-Goog-FieldMask": "rating,userRatingCount,regularOpeningHours" },
+          })
+            .then((r) => (r.ok ? r.json() : null))
+            .catch(() => null)
+        )
+      );
+      if (!results.some(Boolean)) return;
+      cache = { t: Date.now(), data: Object.fromEntries(SHOPS.map((s, i) => [s.id, results[i]])) };
+      try { sessionStorage.setItem("live-google", JSON.stringify(cache)); } catch {}
+    }
+    SHOPS.forEach((s) => {
+      const d = cache.data[s.id];
+      if (!d) return;
+      if (d.rating) s.rating = d.rating;
+      if (d.userRatingCount) s.reviews = d.userRatingCount;
+      if (d.regularOpeningHours?.periods) s.hours = googleHours(d.regularOpeningHours.periods);
+      const pin = markers[s.id]?.getElement()?.querySelector(".pin");
+      if (pin) pin.textContent = s.rating.toFixed(1);
+    });
+    renderList();
+  }
+
   initMap();
   renderList();
+  loadLive();
 })();

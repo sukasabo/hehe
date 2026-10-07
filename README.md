@@ -27,3 +27,10 @@ under `photos.space` (interior and exterior) or `photos.food`.
 Coordinates, hours, ratings, review counts and photos come from Google Maps via the Places API
 (October 2026). Each photo's author is stored under `photos.credits` and shown in the gallery.
 Crowd curves and workability are estimates.
+
+## Live ratings and hours
+
+Put a Google API key in `config.js` and the site loads current ratings, review counts and hours
+from Google on each visit (falling back to the saved values in `data.js`). The key is public, so
+restrict it to this site's address and to the Places API (New), and cap its daily usage in Google Cloud.
+
