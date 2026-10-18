@@ -1,0 +1,691 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lucky's Auto Detailing</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Mobile auto detailing. We come to your home or office, or collect the car and bring it back finished.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: alternating bands — deep emerald (the polo) and cream card stock (the business card), gold foil for marks and rules. */
+:root {
+  --green-950: #041913;
+  --green-900: #06231b;
+  --green-800: #0a3026;
+  --green-700: #0f3e31;
+  --line-dark: rgba(212, 178, 106, 0.22);
+  --gold: #d1ad63;
+  --gold-hi: #f3e3b5;
+  --gold-lo: #8f6c2c;
+  --cream: #f3ede0;
+  --cream-2: #e9e1cf;
+  --ink: #0b2a21;
+  --ink-soft: #4a5f57;
+  --line-light: rgba(11, 42, 33, 0.16);
+  --on-dark: #eef0ea;
+  --muted-dark: #a7bcb2;
+  --display: "Cinzel", "Trajan Pro", "Times New Roman", serif;
+  --accent: "Cormorant Garamond", "Garamond", Georgia, serif;
+  --body: "Jost", "Futura", "Avenir Next", "Segoe UI", sans-serif;
+  --foil: linear-gradient(100deg, var(--gold-lo) 0%, var(--gold) 28%, var(--gold-hi) 50%, var(--gold) 72%, var(--gold-lo) 100%);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }
+body {
+  margin: 0;
+  background: var(--green-900);
+  color: var(--on-dark);
+  font: 400 1rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--green-950); }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+}
+.band { padding-block: clamp(64px, 9vw, 112px); }
+.band--deep { background: var(--green-950); }
+.band--cream { background: var(--cream); color: var(--ink); }
+.foil { background: var(--foil); -webkit-background-clip: text; background-clip: text; color: transparent; }
+h1, h2, h3 { font-family: var(--display); font-weight: 500; text-wrap: balance; margin: 0; letter-spacing: 0.04em; }
+h2 { font-size: clamp(1.75rem, 3.6vw, 2.6rem); line-height: 1.15; }
+h3 { font-size: 1.15rem; letter-spacing: 0.06em; }
+p { margin: 0; }
+.eyebrow {
+  display: flex; align-items: center; gap: 14px;
+  font: 500 0.74rem/1 var(--body); letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold);
+}
+.eyebrow::before, .eyebrow::after { content: ""; height: 1px; width: 32px; background: currentColor; opacity: 0.7; }
+.band--cream .eyebrow { color: var(--gold-lo); }
+.lede { font-size: 1.08rem; color: var(--muted-dark); max-width: 58ch; }
+.band--cream .lede { color: var(--ink-soft); }
+.section-head { display: grid; gap: 18px; justify-items: center; text-align: center; margin-bottom: clamp(36px, 5vw, 56px); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 48px; padding: 0 26px;
+  font: 500 0.8rem/1 var(--body); letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none;
+  border-radius: 2px; border: 1px solid var(--gold); cursor: pointer;
+  transition: background-color .2s, color .2s, transform .2s;
+}
+.btn--gold { background: var(--foil); background-size: 200% 100%; color: var(--green-950); border-color: transparent; }
+.btn--gold:hover { background-position: 100% 0; }
+.btn--ghost { background: transparent; color: var(--gold-hi); }
+.btn--ghost:hover { background: rgba(209, 173, 99, 0.12); }
+
+/* Header */
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9;
+  background: rgba(4, 25, 19, 0.92); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line-dark);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand svg { width: 34px; height: 34px; flex: none; }
+.brand-name { font-family: var(--display); font-size: 1.15rem; letter-spacing: 0.16em; line-height: 1; }
+.brand-name small { display: block; margin-top: 5px; font-family: var(--body); font-size: 0.56rem; letter-spacing: 0.42em; color: var(--muted-dark); }
+.nav { display: flex; align-items: center; gap: 28px; }
+.nav a:not(.btn) { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--muted-dark); }
+.nav a:not(.btn):hover { color: var(--gold-hi); }
+.nav .btn { min-height: 40px; padding: 0 18px; font-size: 0.72rem; }
+@media (max-width: 820px) { .nav a:not(.btn) { display: none; } }
+
+/* Hero */
+.hero {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgba(209, 173, 99, 0.14), transparent 70%),
+    radial-gradient(ellipse 90% 80% at 50% 120%, var(--green-700), transparent 70%),
+    var(--green-900);
+  padding-block: clamp(56px, 9vw, 104px) clamp(56px, 8vw, 96px);
+  text-align: center;
+}
+.hero .wrap { display: grid; justify-items: center; gap: 22px; }
+.monogram { width: clamp(108px, 16vw, 150px); height: auto; }
+.monogram .swoosh { stroke-dasharray: 260; stroke-dashoffset: 0; animation: swoosh 1.6s ease-out both .2s; }
+.monogram .glint { animation: glint 2.4s ease-in-out both .9s; transform-origin: 104px 30px; }
+@keyframes swoosh { from { stroke-dashoffset: 260; } to { stroke-dashoffset: 0; } }
+@keyframes glint { 0% { opacity: .2; transform: scale(.4); } 40% { opacity: 1; transform: scale(1.15); } 100% { opacity: .9; transform: scale(1); } }
+.wordmark { font-size: clamp(2.6rem, 9vw, 5.6rem); letter-spacing: 0.12em; line-height: 1; font-weight: 400; }
+.wordmark-sub { display: flex; align-items: center; gap: 16px; font: 400 clamp(0.7rem, 1.6vw, 0.9rem)/1 var(--display); letter-spacing: 0.5em; color: var(--gold); margin-right: -0.5em; }
+.wordmark-sub::before, .wordmark-sub::after { content: ""; width: clamp(24px, 5vw, 48px); height: 1px; background: currentColor; }
+.hero-line { font-family: var(--accent); font-style: italic; font-size: clamp(1.5rem, 3.4vw, 2.2rem); color: var(--gold-hi); margin-top: 18px; }
+.hero .lede { margin-inline: auto; }
+.hero-ctas { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 8px; }
+.proof { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 28px; margin-top: 26px; padding: 0; list-style: none; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted-dark); }
+.proof li { display: flex; align-items: center; gap: 9px; }
+.proof li::before { content: ""; width: 6px; height: 6px; transform: rotate(45deg); background: var(--gold); }
+
+/* Two ways */
+.ways { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--line-dark); border: 1px solid var(--line-dark); }
+@media (max-width: 760px) { .ways { grid-template-columns: 1fr; } }
+.way { background: var(--green-950); padding: clamp(28px, 4vw, 44px); display: grid; gap: 16px; align-content: start; }
+.way-icon { width: 44px; height: 44px; color: var(--gold); }
+.way-tag { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+.way p { color: var(--muted-dark); }
+.way ol { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; counter-reset: step; }
+.way li { counter-increment: step; display: grid; grid-template-columns: 30px 1fr; gap: 12px; align-items: baseline; color: var(--on-dark); font-size: 0.96rem; }
+.way li::before { content: counter(step); font-family: var(--display); color: var(--gold); font-size: 0.9rem; border: 1px solid var(--line-dark); width: 28px; height: 28px; display: grid; place-items: center; border-radius: 50%; }
+.way-fee { margin-top: 6px; padding-top: 16px; border-top: 1px solid var(--line-dark); font-size: 0.86rem; color: var(--muted-dark); }
+.way-fee strong { color: var(--gold-hi); font-weight: 500; }
+
+/* Pricing */
+.size-picker { display: flex; justify-content: center; margin: 0 auto clamp(32px, 5vw, 48px); }
+.seg { display: inline-flex; flex-wrap: wrap; justify-content: center; border: 1px solid var(--line-light); border-radius: 2px; padding: 4px; gap: 4px; background: var(--cream-2); }
+.seg button {
+  appearance: none; border: 0; background: transparent; cursor: pointer;
+  min-height: 42px; padding: 0 18px; border-radius: 1px;
+  font: 500 0.76rem/1 var(--body); letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft);
+}
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--gold-hi); }
+.seg button small { display: block; margin-top: 4px; font-size: 0.62rem; letter-spacing: 0.06em; text-transform: none; opacity: .75; font-weight: 400; }
+.packages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+@media (max-width: 1040px) { .packages { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 580px) { .packages { grid-template-columns: 1fr; } }
+.pkg { position: relative; display: flex; flex-direction: column; gap: 18px; padding: 30px 24px 26px; background: #fbf8f1; border: 1px solid var(--line-light); }
+.pkg--featured { background: var(--green-900); color: var(--on-dark); border-color: var(--gold-lo); box-shadow: 0 24px 50px -28px rgba(4, 25, 19, 0.7); }
+.pkg-flag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); white-space: nowrap; padding: 5px 12px; font-size: 0.64rem; letter-spacing: 0.24em; text-transform: uppercase; background: var(--foil); color: var(--green-950); font-weight: 600; }
+.pkg h3 { color: inherit; }
+.pkg-desc { font-size: 0.9rem; color: var(--ink-soft); min-height: 3.2em; }
+.pkg--featured .pkg-desc { color: var(--muted-dark); }
+.price { display: flex; align-items: baseline; gap: 6px; font-family: var(--display); font-variant-numeric: tabular-nums; }
+.price .cur { font-size: 1.1rem; color: var(--gold-lo); }
+.price .amt { font-size: 2.6rem; line-height: 1; }
+.pkg--featured .price .cur { color: var(--gold); }
+.price-meta { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+.pkg--featured .price-meta { color: var(--muted-dark); }
+.pkg ul { list-style: none; margin: 0; padding: 18px 0 0; border-top: 1px solid var(--line-light); display: grid; gap: 9px; font-size: 0.9rem; flex: 1; }
+.pkg--featured ul { border-color: var(--line-dark); }
+.pkg li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; align-items: baseline; }
+.pkg li::before { content: ""; width: 7px; height: 7px; transform: translateY(-1px) rotate(45deg); border: 1px solid var(--gold-lo); }
+.pkg--featured li::before { border-color: var(--gold); }
+.pkg .btn { width: 100%; }
+.pkg:not(.pkg--featured) .btn--ghost { color: var(--ink); border-color: var(--ink); }
+.pkg:not(.pkg--featured) .btn--ghost:hover { background: var(--ink); color: var(--gold-hi); }
+.price-note { margin-top: 26px; text-align: center; font-size: 0.86rem; color: var(--ink-soft); }
+
+/* Add-ons and plans */
+.split { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 72px); align-items: start; }
+@media (max-width: 880px) { .split { grid-template-columns: 1fr; } }
+.menu { list-style: none; margin: 0; padding: 0; }
+.menu li { display: grid; grid-template-columns: minmax(0, auto) 1fr auto; align-items: baseline; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line-dark); }
+.menu li::after { content: none; }
+.menu .dots { border-bottom: 1px dotted rgba(209, 173, 99, 0.4); transform: translateY(-4px); min-width: 16px; }
+.menu .item { font-size: 1rem; }
+.menu .item small { display: block; font-size: 0.82rem; color: var(--muted-dark); }
+.menu .cost { font-family: var(--display); color: var(--gold-hi); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.split h2 { margin: 14px 0 26px; }
+.plans { display: grid; gap: 14px; }
+.plan { border: 1px solid var(--line-dark); padding: 22px 24px; display: grid; gap: 8px; background: var(--green-900); }
+.plan-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.plan-off { font-family: var(--display); font-size: 1.5rem; }
+.plan p { color: var(--muted-dark); font-size: 0.92rem; }
+.plan-note { font-size: 0.84rem; color: var(--muted-dark); }
+
+/* Area */
+.area { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 72px); align-items: center; }
+@media (max-width: 820px) { .area { grid-template-columns: 1fr; } }
+.radius { width: 100%; max-width: 420px; aspect-ratio: 1; margin-inline: auto; }
+.fee-table { width: 100%; border-collapse: collapse; margin-top: 24px; font-variant-numeric: tabular-nums; }
+.fee-table th, .fee-table td { text-align: left; padding: 13px 0; border-bottom: 1px solid var(--line-light); font-weight: 400; }
+.fee-table th { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); }
+.fee-table td:last-child, .fee-table th:last-child { text-align: right; }
+.fee-table td:last-child { font-family: var(--display); }
+.area .lede { margin-top: 16px; }
+.need { margin-top: 26px; display: grid; gap: 8px; font-size: 0.92rem; color: var(--ink-soft); }
+.need strong { color: var(--ink); font-weight: 500; }
+
+/* Booking */
+.book { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 48px); align-items: start; }
+@media (max-width: 900px) { .book { grid-template-columns: 1fr; } }
+form { display: grid; gap: 18px; }
+.row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+label { display: grid; gap: 7px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted-dark); }
+input, select, textarea {
+  width: 100%; min-height: 48px; padding: 12px 14px;
+  background: var(--green-900); color: var(--on-dark);
+  border: 1px solid var(--line-dark); border-radius: 2px;
+  font: 400 1rem/1.3 var(--body); letter-spacing: 0; text-transform: none;
+}
+textarea { min-height: 88px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--gold); }
+fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
+legend { padding: 0; margin-bottom: 10px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted-dark); }
+.choice { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 480px) { .choice { grid-template-columns: 1fr; } }
+.choice label { position: relative; display: block; padding: 14px 16px 14px 44px; border: 1px solid var(--line-dark); cursor: pointer; letter-spacing: 0.08em; color: var(--on-dark); font-size: 0.82rem; }
+.choice label small { display: block; margin-top: 4px; letter-spacing: 0; text-transform: none; color: var(--muted-dark); font-size: 0.82rem; }
+.choice input { position: absolute; left: 16px; top: 16px; width: 16px; height: 16px; min-height: 0; padding: 0; accent-color: var(--gold); }
+.choice label:has(input:checked) { border-color: var(--gold); background: rgba(209, 173, 99, 0.08); }
+.addons-pick { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 18px; }
+@media (max-width: 480px) { .addons-pick { grid-template-columns: 1fr; } }
+.addons-pick label { display: flex; align-items: center; gap: 10px; letter-spacing: 0; text-transform: none; font-size: 0.92rem; color: var(--on-dark); cursor: pointer; }
+.addons-pick input { width: 18px; height: 18px; min-height: 0; padding: 0; accent-color: var(--gold); flex: none; }
+.addons-pick span.c { margin-left: auto; color: var(--muted-dark); font-variant-numeric: tabular-nums; }
+.summary { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 88px); background: var(--cream); color: var(--ink); padding: 28px 26px; border: 1px solid var(--gold-lo); }
+.summary h3 { font-size: 1rem; letter-spacing: 0.2em; }
+.summary dl { margin: 18px 0 0; display: grid; gap: 0; font-variant-numeric: tabular-nums; }
+.summary .line { display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line-light); font-size: 0.92rem; }
+.summary dt { color: var(--ink-soft); min-width: 0; }
+.summary dd { margin: 0; text-align: right; }
+.summary .total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 16px; }
+.summary .total span:first-child { font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase; }
+.summary .total strong { font-family: var(--display); font-size: 2.1rem; font-weight: 500; }
+.summary .dur { margin-top: 6px; font-size: 0.84rem; color: var(--ink-soft); }
+.summary .fine { margin-top: 18px; font-size: 0.78rem; color: var(--ink-soft); }
+.confirm { border: 1px solid var(--gold); padding: 18px 20px; background: rgba(209, 173, 99, 0.08); color: var(--gold-hi); font-size: 0.95rem; }
+
+/* FAQ */
+.faq { max-width: 760px; margin: 0 auto; border-top: 1px solid var(--line-dark); }
+.faq details { border-bottom: 1px solid var(--line-dark); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; padding: 20px 0; font-size: 1.05rem; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--display); color: var(--gold); font-size: 1.3rem; line-height: 1; transition: transform .2s; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding: 0 0 22px; color: var(--muted-dark); max-width: 62ch; }
+
+/* Footer */
+.site-footer { background: var(--green-950); border-top: 1px solid var(--line-dark); padding-block: 56px 40px; }
+.foot { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, 1fr)); gap: 32px; }
+@media (max-width: 720px) { .foot { grid-template-columns: 1fr; } }
+.foot h4 { margin: 0 0 12px; font: 500 0.72rem/1 var(--body); letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+.foot p, .foot li { color: var(--muted-dark); font-size: 0.92rem; }
+.foot ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.foot .tabular { font-variant-numeric: tabular-nums; }
+.copy { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--line-dark); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; font-size: 0.78rem; color: var(--muted-dark); letter-spacing: 0.06em; }
+.mock-tag { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="foil" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f3e3b5"/>
+      <stop offset=".45" stop-color="#d1ad63"/>
+      <stop offset=".75" stop-color="#f0dca6"/>
+      <stop offset="1" stop-color="#8f6c2c"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop offset="0" stop-color="#fff8e1" stop-opacity="1"/>
+      <stop offset=".35" stop-color="#f3e3b5" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#d1ad63" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Lucky's Auto Detailing, back to top">
+      <svg viewBox="0 0 140 120" aria-hidden="true">
+        <text x="70" y="104" text-anchor="middle" font-family="Cinzel, 'Times New Roman', serif" font-size="118" fill="url(#foil)">L</text>
+        <path d="M20 92 C 16 70, 70 42, 122 30" fill="none" stroke="url(#foil)" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name foil">LUCKY'S<small>AUTO DETAILING</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#extras">Add-ons</a>
+      <a href="#area">Service area</a>
+      <a class="btn btn--gold" href="#book">Book</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <svg class="monogram" viewBox="0 0 140 120" role="img" aria-label="Lucky's monogram">
+        <text x="70" y="106" text-anchor="middle" font-family="Cinzel, 'Times New Roman', serif" font-size="122" fill="url(#foil)">L</text>
+        <path class="swoosh" d="M18 94 C 8 72, 64 42, 124 28" fill="none" stroke="url(#foil)" stroke-width="2.6" stroke-linecap="round"/>
+        <g class="glint">
+          <circle cx="104" cy="30" r="13" fill="url(#glow)"/>
+          <path d="M104 18 L105.3 28.7 L116 30 L105.3 31.3 L104 42 L102.7 31.3 L92 30 L102.7 28.7 Z" fill="#fff8e1"/>
+        </g>
+      </svg>
+      <h1 class="wordmark foil">LUCKY'S</h1>
+      <div class="wordmark-sub">AUTO DETAILING</div>
+      <p class="hero-line">The detail shop that comes to your driveway.</p>
+      <p class="lede">No shop and no waiting room. We detail at your home or office with our own water and power, or we collect the car from your door and bring it back finished.</p>
+      <div class="hero-ctas">
+        <a class="btn btn--gold" href="#book">Book a detail</a>
+        <a class="btn btn--ghost" href="#pricing">See prices</a>
+      </div>
+      <ul class="proof">
+        <li>Fully self-contained van</li>
+        <li>Insured up to $1M</li>
+        <li>Pay after the work is done</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band band--deep" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Two ways to book</span>
+        <h2 class="foil">We come to you, or we come for the car</h2>
+        <p class="lede">Pick whichever suits your day. The packages and prices are the same either way.</p>
+      </div>
+      <div class="ways">
+        <article class="way">
+          <svg class="way-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 32V20l5-8h20l7 8h6a2 2 0 0 1 2 2v10"/><path d="M4 32h40"/><circle cx="13" cy="33" r="4"/><circle cx="35" cy="33" r="4"/><path d="M12 20h20M22 12v8"/></svg>
+          <span class="way-tag">Mobile detail</span>
+          <h3>At your home or office</h3>
+          <p>Leave the car where it's parked. We set up next to it and work while you get on with your day.</p>
+          <ol>
+            <li>Book a time and send us the address.</li>
+            <li>We arrive with water, power and every product we need.</li>
+            <li>Inspect the finished car with us, then pay.</li>
+          </ol>
+          <p class="way-fee">Free within 15 miles. <strong>Driveway, garage or open lot</strong> all work.</p>
+        </article>
+        <article class="way">
+          <svg class="way-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M6 22 24 8l18 14"/><path d="M10 19v21h28V19"/><circle cx="30" cy="30" r="5"/><path d="m33.5 33.5 6 6M36 37l2-2M38.5 39.5l2-2"/></svg>
+          <span class="way-tag">Pickup &amp; drop-off</span>
+          <h3>Hand us the keys</h3>
+          <p>For apartments, tight streets or HOA rules. We collect the car from your home and return it the same day.</p>
+          <ol>
+            <li>Book and choose a pickup window.</li>
+            <li>A Lucky's driver collects the car and the keys.</li>
+            <li>The car comes back detailed, same day.</li>
+          </ol>
+          <p class="way-fee">Collection and return: <strong>$35</strong> within 15 miles.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--cream" id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Price list</span>
+        <h2>Detail packages</h2>
+        <p class="lede">Prices depend on the size of the vehicle. Choose yours below.</p>
+      </div>
+      <div class="size-picker">
+        <div class="seg" role="group" aria-label="Vehicle size">
+          <button type="button" data-size="0" aria-pressed="true">Car<small>Sedan, coupe, hatch</small></button>
+          <button type="button" data-size="1" aria-pressed="false">SUV<small>Crossover, 2-row SUV</small></button>
+          <button type="button" data-size="2" aria-pressed="false">Large<small>Truck, van, 3-row</small></button>
+        </div>
+      </div>
+      <div class="packages" id="packages"></div>
+      <p class="price-note">Very heavy soiling, sand or pet hair may add time. We always quote before we start, never after.</p>
+    </div>
+  </section>
+
+  <section class="band" id="extras">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">À la carte</span>
+        <h2 class="foil">Add-ons</h2>
+        <ul class="menu" id="addon-menu"></ul>
+      </div>
+      <div>
+        <span class="eyebrow">Keep it clean</span>
+        <h2 class="foil">Maintenance plans</h2>
+        <div class="plans">
+          <div class="plan">
+            <div class="plan-top"><h3>Every two weeks</h3><span class="plan-off foil">15% off</span></div>
+            <p>A standing slot on the same day each fortnight. Best for daily drivers and family cars.</p>
+          </div>
+          <div class="plan">
+            <div class="plan-top"><h3>Monthly</h3><span class="plan-off foil">10% off</span></div>
+            <p>One visit a month to keep the paint protected and the cabin fresh.</p>
+          </div>
+          <p class="plan-note">Plans start after one Full Detail and apply to Exterior Refresh, Interior Reset and Full Detail. Cancel any time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--cream" id="area">
+    <div class="wrap area">
+      <svg class="radius" viewBox="0 0 400 400" role="img" aria-label="Service area: free within 15 miles, travel fee from 15 to 30 miles">
+        <circle cx="200" cy="200" r="190" fill="none" stroke="#8f6c2c" stroke-width="1" stroke-dasharray="3 6"/>
+        <circle cx="200" cy="200" r="120" fill="rgba(11,42,33,0.06)" stroke="#0b2a21" stroke-width="1"/>
+        <circle cx="200" cy="200" r="60" fill="none" stroke="rgba(11,42,33,0.25)" stroke-width="1"/>
+        <path d="M200 20v360M20 200h360" stroke="rgba(11,42,33,0.12)" stroke-width="1"/>
+        <circle cx="200" cy="200" r="7" fill="#0b2a21"/>
+        <circle cx="200" cy="200" r="14" fill="none" stroke="#8f6c2c" stroke-width="1.4"/>
+        <text x="200" y="232" text-anchor="middle" font-family="Jost, sans-serif" font-size="12" letter-spacing="2" fill="#0b2a21">YOUR ADDRESS</text>
+        <text x="200" y="74" text-anchor="middle" font-family="Cinzel, serif" font-size="14" fill="#0b2a21">15 MI · FREE</text>
+        <text x="200" y="28" text-anchor="middle" font-family="Cinzel, serif" font-size="14" fill="#8f6c2c" dy="20">30 MI · $1 / MI</text>
+      </svg>
+      <div>
+        <span class="eyebrow">Service area</span>
+        <h2 style="margin-top:14px">Where we go</h2>
+        <p class="lede">We cover the city and surrounding suburbs. Travel is measured from our base to your address.</p>
+        <table class="fee-table">
+          <thead><tr><th scope="col">Distance</th><th scope="col">Travel fee</th></tr></thead>
+          <tbody>
+            <tr><td>Up to 15 miles</td><td>Free</td></tr>
+            <tr><td>15 to 30 miles</td><td>$1 per mile</td></tr>
+            <tr><td>Over 30 miles</td><td>Call for a quote</td></tr>
+            <tr><td>Pickup &amp; drop-off</td><td>$35 flat</td></tr>
+          </tbody>
+        </table>
+        <div class="need">
+          <p><strong>What we need from you:</strong> a flat spot about the size of two cars, and permission to work there.</p>
+          <p><strong>What we bring:</strong> 100 gallons of water, a quiet generator, shade canopy and all products.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--deep" id="book">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Book</span>
+        <h2 class="foil">Request a detail</h2>
+        <p class="lede">Choose a package and we'll confirm the time by text within the hour.</p>
+      </div>
+      <div class="book">
+        <form id="book-form" novalidate>
+          <fieldset>
+            <legend>How should we do it?</legend>
+            <div class="choice">
+              <label><input type="radio" name="mode" id="mode-mobile" value="mobile" checked>Mobile detail<small>We come to your home or office</small></label>
+              <label><input type="radio" name="mode" id="mode-pickup" value="pickup">Pickup &amp; drop-off<small>We collect and return the car (+$35)</small></label>
+            </div>
+          </fieldset>
+          <div class="row">
+            <label for="f-size">Vehicle size
+              <select id="f-size" name="size">
+                <option value="0">Car: sedan, coupe, hatch</option>
+                <option value="1">SUV: crossover, 2-row</option>
+                <option value="2">Large: truck, van, 3-row</option>
+              </select>
+            </label>
+            <label for="f-pkg">Package
+              <select id="f-pkg" name="pkg"></select>
+            </label>
+          </div>
+          <fieldset>
+            <legend>Add-ons</legend>
+            <div class="addons-pick" id="addon-pick"></div>
+          </fieldset>
+          <div class="row">
+            <label for="f-name">Name<input id="f-name" name="name" autocomplete="name" value="Jordan Ellis"></label>
+            <label for="f-phone">Mobile number<input id="f-phone" name="phone" type="tel" autocomplete="tel" value="(555) 014-2290"></label>
+          </div>
+          <label for="f-address">Address<input id="f-address" name="address" autocomplete="street-address" value="418 Linden Park Dr"></label>
+          <div class="row">
+            <label for="f-vehicle">Year, make and model<input id="f-vehicle" name="vehicle" value="2021 Toyota RAV4"></label>
+            <label for="f-date">Preferred date<input id="f-date" name="date" type="date"></label>
+          </div>
+          <div class="row">
+            <label for="f-time">Arrival window
+              <select id="f-time" name="time">
+                <option>8:00 – 10:00 am</option>
+                <option selected>10:00 am – 12:00 pm</option>
+                <option>12:00 – 2:00 pm</option>
+                <option>2:00 – 4:00 pm</option>
+              </select>
+            </label>
+            <label for="f-where">Where's it parked?
+              <select id="f-where" name="where">
+                <option>Driveway</option>
+                <option>Garage</option>
+                <option>Office or apartment lot</option>
+                <option>Street</option>
+              </select>
+            </label>
+          </div>
+          <label for="f-notes">Anything we should know?<textarea id="f-notes" name="notes">Dog hair in the back seats.</textarea></label>
+          <div class="confirm" id="confirm" hidden>This is a website mockup, so nothing was sent. On the live site this would text the request to Lucky's and show a confirmation.</div>
+          <button class="btn btn--gold" type="submit">Request this booking</button>
+        </form>
+        <aside class="summary" aria-live="polite">
+          <h3>Your estimate</h3>
+          <dl id="sum-lines"></dl>
+          <div class="total"><span>Total</span><strong id="sum-total">$0</strong></div>
+          <p class="dur" id="sum-dur"></p>
+          <p class="fine">Estimate before travel fees beyond 15 miles. Payment by card, Apple Pay or cash once you've inspected the car.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Questions</span>
+        <h2 class="foil">Before you book</h2>
+      </div>
+      <div class="faq">
+        <details open><summary>Do I need to be home?</summary><p>No. For a mobile detail we only need the car unlocked or the keys left somewhere safe. For interiors we'll text you when we arrive and when we finish.</p></details>
+        <details><summary>Do you need my water or electricity?</summary><p>No. The van carries its own water tank and a quiet generator, so we never use your hose or outlets.</p></details>
+        <details><summary>What happens if it rains?</summary><p>Interior work goes ahead as planned. For exterior work we'll move you to the next dry slot at no charge, or work under a garage roof if you have one.</p></details>
+        <details><summary>How does pickup and drop-off work?</summary><p>A Lucky's driver collects the car from your home in the window you choose, details it at a covered partner bay, and returns it the same day. The car is covered by our insurance the whole time.</p></details>
+        <details><summary>Can you work in an apartment complex or office lot?</summary><p>Usually, yes. Some complexes don't allow washing on site. If yours doesn't, choose pickup and drop-off instead.</p></details>
+        <details><summary>How do I pay?</summary><p>Card, Apple Pay, Google Pay or cash, after you've inspected the finished car. No deposit for standard packages. Showroom bookings take a $100 deposit.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" aria-label="Back to top">
+          <svg viewBox="0 0 140 120" aria-hidden="true">
+            <text x="70" y="104" text-anchor="middle" font-family="Cinzel, 'Times New Roman', serif" font-size="118" fill="url(#foil)">L</text>
+            <path d="M20 92 C 16 70, 70 42, 122 30" fill="none" stroke="url(#foil)" stroke-width="4" stroke-linecap="round"/>
+          </svg>
+          <span class="brand-name foil">LUCKY'S<small>AUTO DETAILING</small></span>
+        </a>
+        <p style="margin-top:16px;max-width:38ch">Mobile detailing and pickup &amp; drop-off. No shop, no waiting room.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul class="tabular">
+          <li>Text or call: (555) 014-2777</li>
+          <li>hello@luckysdetailing.example</li>
+          <li>@luckysautodetailing</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Hours</h4>
+        <ul class="tabular">
+          <li>Mon – Fri · 7:30 am – 6 pm</li>
+          <li>Saturday · 8 am – 4 pm</li>
+          <li>Sunday · By request</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy"><span>© 2026 Lucky's Auto Detailing</span><span class="mock-tag">Website mockup · contact details are placeholders</span></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var PACKAGES = [
+    { id: "exterior", name: "Exterior Refresh", desc: "A careful hand wash and a fresh layer of protection.", prices: [79, 99, 119], time: "About 1½ hours",
+      items: ["Two-bucket foam hand wash", "Wheels, tires and wheel wells", "Bug and tar removal", "Streak-free exterior glass", "Spray sealant, 2–3 months", "Tire shine"] },
+    { id: "interior", name: "Interior Reset", desc: "Every surface inside, cleaned and conditioned.", prices: [119, 139, 159], time: "About 2 hours",
+      items: ["Full vacuum, seats and trunk", "Steam clean vents, console, cupholders", "Floor mats washed", "Leather cleaned and conditioned", "Door jambs wiped", "Interior glass and mirrors"] },
+    { id: "full", name: "The Lucky Full Detail", desc: "Our most booked package: Exterior Refresh and Interior Reset together.", prices: [199, 239, 279], time: "About 3½ hours", featured: true,
+      items: ["Everything in Exterior Refresh", "Everything in Interior Reset", "Clay bar on painted panels", "Spot stain treatment", "Fragrance of your choice", "Before-and-after photos"] },
+    { id: "showroom", name: "Showroom", desc: "Paint correction and ceramic coating for a finish that lasts.", prices: [549, 649, 749], time: "Full day",
+      items: ["Everything in Full Detail", "Iron and fallout decontamination", "One-step machine polish", "Removes 60–80% of swirls", "Ceramic coating, 1-year", "Wheel faces coated"] }
+  ];
+  var ADDONS = [
+    { id: "pet", name: "Pet hair removal", note: "From $35, depending on amount", price: 35 },
+    { id: "shampoo", name: "Seat and carpet shampoo", note: "Hot water extraction", price: 49 },
+    { id: "odor", name: "Odor treatment", note: "Ozone, for smoke and mildew", price: 59 },
+    { id: "headlights", name: "Headlight restoration", note: "Pair, sanded, polished and sealed", price: 69 },
+    { id: "engine", name: "Engine bay detail", note: "Degrease, rinse and dress", price: 49 },
+    { id: "water", name: "Water spot removal", note: "Glass and paint", price: 49 },
+    { id: "ceramic", name: "Ceramic spray upgrade", note: "Six months of protection, with any wash", price: 39 },
+    { id: "childseat", name: "Child seat deep clean", note: "Per seat", price: 25 }
+  ];
+  var PICKUP_FEE = 35;
+  var size = 0;
+
+  var money = function (n) { return "$" + n.toLocaleString("en-US"); };
+  var $ = function (id) { return document.getElementById(id); };
+
+  // Price list cards
+  function renderPackages() {
+    $("packages").innerHTML = PACKAGES.map(function (p) {
+      return '<article class="pkg' + (p.featured ? " pkg--featured" : "") + '">' +
+        (p.featured ? '<span class="pkg-flag">Most booked</span>' : "") +
+        "<h3>" + p.name + "</h3>" +
+        '<p class="pkg-desc">' + p.desc + "</p>" +
+        '<div><div class="price"><span class="cur">$</span><span class="amt">' + p.prices[size] + "</span></div>" +
+        '<div class="price-meta">' + p.time + "</div></div>" +
+        "<ul>" + p.items.map(function (i) { return "<li>" + i + "</li>"; }).join("") + "</ul>" +
+        '<a class="btn ' + (p.featured ? "btn--gold" : "btn--ghost") + '" href="#book" data-pick="' + p.id + '">Book this</a>' +
+        "</article>";
+    }).join("");
+  }
+
+  function setSize(n) {
+    size = n;
+    document.querySelectorAll(".seg button").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(+b.dataset.size === n));
+    });
+    $("f-size").value = String(n);
+    renderPackages();
+    renderPkgOptions();
+    updateSummary();
+  }
+
+  document.querySelectorAll(".seg button").forEach(function (b) {
+    b.addEventListener("click", function () { setSize(+b.dataset.size); });
+  });
+
+  $("packages").addEventListener("click", function (e) {
+    var a = e.target.closest("[data-pick]");
+    if (!a) return;
+    $("f-pkg").value = a.dataset.pick;
+    updateSummary();
+  });
+
+  // Add-on menu
+  $("addon-menu").innerHTML = ADDONS.map(function (a) {
+    return '<li><span class="item">' + a.name + "<small>" + a.note + '</small></span><span class="dots"></span><span class="cost">' + money(a.price) + "</span></li>";
+  }).join("");
+
+  // Booking form
+  function renderPkgOptions() {
+    var current = $("f-pkg").value || "full";
+    $("f-pkg").innerHTML = PACKAGES.map(function (p) {
+      return '<option value="' + p.id + '">' + p.name + " · " + money(p.prices[size]) + "</option>";
+    }).join("");
+    $("f-pkg").value = current;
+  }
+
+  $("addon-pick").innerHTML = ADDONS.map(function (a) {
+    return '<label><input type="checkbox" id="ao-' + a.id + '" value="' + a.id + '"' + (a.id === "pet" ? " checked" : "") + ">" + a.name + '<span class="c">' + money(a.price) + "</span></label>";
+  }).join("");
+
+  function updateSummary() {
+    var pkg = PACKAGES.filter(function (p) { return p.id === $("f-pkg").value; })[0] || PACKAGES[2];
+    var lines = [[pkg.name, pkg.prices[size]]];
+    ADDONS.forEach(function (a) { if ($("ao-" + a.id).checked) lines.push([a.name, a.price]); });
+    var pickup = document.querySelector('input[name="mode"]:checked').value === "pickup";
+    lines.push([pickup ? "Pickup & drop-off" : "Travel, within 15 mi", pickup ? PICKUP_FEE : 0]);
+    var total = lines.reduce(function (s, l) { return s + l[1]; }, 0);
+    $("sum-lines").innerHTML = lines.map(function (l) {
+      return '<div class="line"><dt>' + l[0] + "</dt><dd>" + (l[1] ? money(l[1]) : "Free") + "</dd></div>";
+    }).join("");
+    $("sum-total").textContent = money(total);
+    $("sum-dur").textContent = pkg.time + (pickup ? ", plus collection and return" : " at your address");
+  }
+
+  $("f-size").addEventListener("change", function () { setSize(+this.value); });
+  $("book-form").addEventListener("change", updateSummary);
+  $("book-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    $("confirm").hidden = false;
+  });
+
+  // Default date: the next weekday after tomorrow
+  var d = new Date(); d.setDate(d.getDate() + 2);
+  while (d.getDay() === 0) d.setDate(d.getDate() + 1);
+  $("f-date").value = d.toISOString().slice(0, 10);
+  $("f-date").min = new Date().toISOString().slice(0, 10);
+
+  renderPkgOptions();
+  $("f-pkg").value = "full";
+  setSize(0);
+})();
+</script>
+</body>
+</html>
